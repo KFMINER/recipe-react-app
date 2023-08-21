@@ -10,7 +10,7 @@ interface Props {
   isLoggedIn: boolean;
 }
 
-const NavBar = ({ isLoggedIn = false }: Props) => {
+const NavBar = ({ isLoggedIn }: Props) => {
   return (
     <HStack paddingX={5} bg="green.400" height="60px">
       <Box width="30px">

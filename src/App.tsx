@@ -1,24 +1,17 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import PageHome from "./components/PageHome";
+import PageLogin from "./components/PageLogin";
 
 function App() {
   return (
-    <Grid
-      gridTemplateAreas={{
-        base: `"nav" "main"`,
-        lg: `"nav nav" "aside main"`,
-      }}
-    >
-      <GridItem area="nav">
-        <NavBar />
-      </GridItem>
-
-      <Show above="lg">
-        <GridItem area="aside">Aside</GridItem>
-      </Show>
-
-      <GridItem area="main">Main</GridItem>
-    </Grid>
+    <BrowserRouter>
+      <NavBar isLoggedIn={false} />
+      <Routes>
+        <Route path="/" element={<PageHome />} />
+        <Route path="/login" element={<PageLogin />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
