@@ -34,7 +34,10 @@ const PageLogin = () => {
           token: res.data.token,
           expiresIn: 3600,
           tokenType: "Bearer",
-          authState: { username: user.username },
+          authState: {
+            id: res.data.user.id,
+            username: res.data.user.username,
+          },
         });
         navigate("/");
       })
