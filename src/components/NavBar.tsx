@@ -1,7 +1,7 @@
-import { Box, HStack, Image, Text } from "@chakra-ui/react";
+import { Box, HStack, Text } from "@chakra-ui/react";
 import { BsFillBoxFill } from "react-icons/bs";
-import { FaUserCircle } from "react-icons/fa";
 import SearchBar from "./SearchBar";
+import UserInfo from "./UserInfo";
 
 const NavBar = () => {
   return (
@@ -16,12 +16,7 @@ const NavBar = () => {
 
       <SearchBar />
 
-      <Box width="30px" marginLeft={5}>
-        <FaUserCircle color="white" fontSize="30px" />
-      </Box>
-      <Text color="white" marginTop={-1}>
-        KFMINER
-      </Text>
+      <UserInfo />
     </HStack>
   );
 };
