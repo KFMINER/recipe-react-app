@@ -1,11 +1,16 @@
-import { Box, HStack, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Text } from "@chakra-ui/react";
 import { BsFillBox2HeartFill, BsFillBoxFill } from "react-icons/bs";
 import SearchBar from "./SearchBar";
 import UserInfo from "./UserInfo";
 import NavButton from "./NavButton";
 import { FaClipboardList, FaHome } from "react-icons/fa";
+import NavLogin from "./NavLogin";
 
-const NavBar = () => {
+interface Props {
+  isLoggedIn: boolean;
+}
+
+const NavBar = ({ isLoggedIn = false }: Props) => {
   return (
     <HStack paddingX={5} bg="green.400" height="60px">
       <Box width="30px">
@@ -18,7 +23,7 @@ const NavBar = () => {
 
       <SearchBar />
 
-      <HStack marginRight={100} marginLeft={10} gap="15px">
+      <HStack marginX={10} gap="15px">
         <NavButton label="Home" onClick={() => console.log("home")}>
           <FaHome />
         </NavButton>
@@ -32,7 +37,16 @@ const NavBar = () => {
         </NavButton>
       </HStack>
 
-      <UserInfo />
+      <Flex width="400px" justifyContent="flex-end">
+        {isLoggedIn ? (
+          <UserInfo />
+        ) : (
+          <NavLogin
+            onLogin={() => console.log("login")}
+            onSignup={() => console.log("signup")}
+          />
+        )}
+      </Flex>
     </HStack>
   );
 };
