@@ -4,13 +4,13 @@ import { BsSearch } from "react-icons/bs";
 
 const SearchBar = () => {
   return (
-    <InputGroup size="md" bg="white" marginLeft="75px" borderRadius={8}>
+    <InputGroup size="md" bg="white" borderRadius={8}>
       <Input
         placeholder="Search..."
         variant="filled"
         borderRadius={8}
         bg="white"
-        focusBorderColor="green.600"
+        focusBorderColor="green.500"
       />
       <InputRightElement children={<BsSearch color="gray" />} />
     </InputGroup>

@@ -12,13 +12,13 @@ const NavBar = () => {
         <BsFillBoxFill color="white" fontSize="30px" />
       </Box>
 
-      <Text fontSize="2xl" color="white" marginTop={-1}>
+      <Text fontSize="2xl" color="white" marginTop={-1} marginRight={100}>
         Recipe<b>Box</b>
       </Text>
 
       <SearchBar />
 
-      <HStack marginX={115} gap="30px">
+      <HStack marginRight={100} marginLeft={10} gap="30px">
         <NavButton label="Home">
           <FaHome />
         </NavButton>
