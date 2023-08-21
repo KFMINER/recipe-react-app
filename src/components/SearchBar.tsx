@@ -12,7 +12,7 @@ const SearchBar = () => {
         bg="white"
         focusBorderColor="green.600"
       />
-      <InputRightElement children={<BsSearch />} />
+      <InputRightElement children={<BsSearch color="gray" />} />
     </InputGroup>
   );
 };

@@ -4,7 +4,7 @@ import { FaUserCircle } from "react-icons/fa";
 const UserInfo = () => {
   return (
     <HStack>
-      <Box width="30px" marginLeft={5}>
+      <Box width="30px">
         <FaUserCircle color="white" fontSize="30px" />
       </Box>
       <Text color="white" marginTop={-1}>

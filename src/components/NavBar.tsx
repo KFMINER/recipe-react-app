@@ -1,7 +1,9 @@
 import { Box, HStack, Text } from "@chakra-ui/react";
-import { BsFillBoxFill } from "react-icons/bs";
+import { BsFillBox2HeartFill, BsFillBoxFill } from "react-icons/bs";
 import SearchBar from "./SearchBar";
 import UserInfo from "./UserInfo";
+import NavButton from "./NavButton";
+import { FaClipboardList, FaHome } from "react-icons/fa";
 
 const NavBar = () => {
   return (
@@ -15,6 +17,20 @@ const NavBar = () => {
       </Text>
 
       <SearchBar />
+
+      <HStack marginX={115} gap="30px">
+        <NavButton label="Home">
+          <FaHome />
+        </NavButton>
+
+        <NavButton label="My Recipes">
+          <FaClipboardList />
+        </NavButton>
+
+        <NavButton label="Favorites">
+          <BsFillBox2HeartFill />
+        </NavButton>
+      </HStack>
 
       <UserInfo />
     </HStack>
