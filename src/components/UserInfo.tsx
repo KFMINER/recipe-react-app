@@ -8,8 +8,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FaUserCircle } from "react-icons/fa";
+import useSignOut from "react-auth-kit/dist/hooks/useSignOut";
 
 const UserInfo = () => {
+  const signOut = useSignOut();
+
   return (
     <Menu>
       <MenuButton>
@@ -23,9 +26,7 @@ const UserInfo = () => {
         </HStack>
       </MenuButton>
       <MenuList>
-        <MenuItem as="a" href="#">
-          Logout
-        </MenuItem>
+        <MenuItem onClick={signOut}>Logout</MenuItem>
       </MenuList>
     </Menu>
   );

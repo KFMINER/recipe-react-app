@@ -5,12 +5,11 @@ import UserInfo from "./UserInfo";
 import NavButton from "./NavButton";
 import { FaClipboardList, FaHome } from "react-icons/fa";
 import NavLogin from "./NavLogin";
+import { useIsAuthenticated } from "react-auth-kit";
 
-interface Props {
-  isLoggedIn: boolean;
-}
+const NavBar = () => {
+  const isAuthenticated = useIsAuthenticated();
 
-const NavBar = ({ isLoggedIn }: Props) => {
   return (
     <HStack paddingX={5} bg="green.400" height="60px">
       <Box width="30px">
@@ -38,7 +37,7 @@ const NavBar = ({ isLoggedIn }: Props) => {
       </HStack>
 
       <Flex width="400px" justifyContent="flex-end">
-        {isLoggedIn ? (
+        {isAuthenticated() ? (
           <UserInfo />
         ) : (
           <NavLogin
