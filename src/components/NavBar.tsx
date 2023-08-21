@@ -18,16 +18,16 @@ const NavBar = () => {
 
       <SearchBar />
 
-      <HStack marginRight={100} marginLeft={10} gap="30px">
-        <NavButton label="Home">
+      <HStack marginRight={100} marginLeft={10} gap="15px">
+        <NavButton label="Home" onClick={() => console.log("home")}>
           <FaHome />
         </NavButton>
 
-        <NavButton label="My Recipes">
+        <NavButton label="My Recipes" onClick={() => console.log("my recipes")}>
           <FaClipboardList />
         </NavButton>
 
-        <NavButton label="Favorites">
+        <NavButton label="Favorites" onClick={() => console.log("favorites")}>
           <BsFillBox2HeartFill />
         </NavButton>
       </HStack>
