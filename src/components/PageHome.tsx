@@ -1,7 +1,15 @@
-import React from "react";
+import { Grid, GridItem } from "@chakra-ui/react";
+import SideNav from "./sideNav";
 
 const PageHome = () => {
-  return <div>PageHome</div>;
+  return (
+    <Grid templateAreas={`"aside main"`} gridTemplateColumns={"250px 1fr"}>
+      <GridItem area="aside">
+        <SideNav />
+      </GridItem>
+      <GridItem area="main">main</GridItem>
+    </Grid>
+  );
 };
 
 export default PageHome;
