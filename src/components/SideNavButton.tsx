@@ -1,8 +1,14 @@
-import { HStack, Text, background } from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, HStack, Text, background } from "@chakra-ui/react";
+import { ReactNode, useState } from "react";
 import { MdAdd } from "react-icons/md";
 
-const SideNavButton = () => {
+interface Props {
+  onClick: () => void;
+  label: string;
+  icon: ReactNode;
+}
+
+const SideNavButton = ({ onClick, label, icon }: Props) => {
   const [isHovered, setHovered] = useState(false);
 
   return (
@@ -16,9 +22,11 @@ const SideNavButton = () => {
       borderRadius={7}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={onClick}
     >
-      <MdAdd size="30px" />
-      <Text marginLeft={3}>Neues Rezept...</Text>
+      <Box fontSize="30px">{icon}</Box>
+
+      <Text marginLeft={3}>{label}</Text>
     </HStack>
   );
 };
