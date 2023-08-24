@@ -1,6 +1,5 @@
-import { Box, HStack, Text, background } from "@chakra-ui/react";
+import { Box, HStack, Text } from "@chakra-ui/react";
 import { ReactNode, useState } from "react";
-import { MdAdd } from "react-icons/md";
 
 interface Props {
   onClick: () => void;
