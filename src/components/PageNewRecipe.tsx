@@ -1,15 +1,20 @@
 import {
+  Box,
   Button,
   Center,
   Flex,
   FormControl,
   FormLabel,
+  HStack,
   Input,
+  Text,
   Textarea,
   VStack,
 } from "@chakra-ui/react";
 import IngredientInput from "./IngredientInput";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { FaImage } from "react-icons/fa";
+import ImageSelectButton from "./ImageSelectButton";
 
 interface Ingredient {
   [key: string]: string | undefined;
@@ -24,6 +29,7 @@ const PageNewRecipe = () => {
   const [steps, setSteps] = useState<string[]>([""]);
   const [canAddIngredient, setCanAddIngredient] = useState(false);
   const [canAddStep, setCanAddStep] = useState(false);
+  const [image, setImage] = useState<File>();
 
   useEffect(() => {
     checkForEmptyIngredients();
@@ -122,6 +128,17 @@ const PageNewRecipe = () => {
             >
               Add Step
             </Button>
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Image</FormLabel>
+            <HStack>
+              <ImageSelectButton
+                onFileSelect={(file: File) => {
+                  setImage(file);
+                }}
+              />
+            </HStack>
           </FormControl>
         </VStack>
       </Center>
