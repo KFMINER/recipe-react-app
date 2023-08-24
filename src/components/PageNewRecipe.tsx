@@ -5,6 +5,7 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Textarea,
   VStack,
 } from "@chakra-ui/react";
 import IngredientInput from "./IngredientInput";
@@ -20,10 +21,13 @@ const PageNewRecipe = () => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([
     { name: "", amount: "" },
   ]);
+  const [steps, setSteps] = useState<string[]>([""]);
   const [canAddIngredient, setCanAddIngredient] = useState(false);
+  const [canAddStep, setCanAddStep] = useState(false);
 
   useEffect(() => {
     checkForEmptyIngredients();
+    checkForEmptySteps();
   });
 
   const checkForEmptyIngredients = () => {
@@ -31,7 +35,15 @@ const PageNewRecipe = () => {
     ingredients.forEach((ingredient: Ingredient) => {
       if (ingredient.name.trim().length === 0) {
         setCanAddIngredient(false);
-        console.log("can not add: " + JSON.stringify(ingredient));
+      }
+    });
+  };
+
+  const checkForEmptySteps = () => {
+    setCanAddStep(true);
+    steps.forEach((step: string) => {
+      if (step.trim().length === 0) {
+        setCanAddStep(false);
       }
     });
   };
@@ -47,7 +59,7 @@ const PageNewRecipe = () => {
 
           <FormControl>
             <FormLabel>Ingredients</FormLabel>
-            <Flex direction="column" gap={3} id="testcontainer">
+            <Flex direction="column" gap={3}>
               {ingredients.map((ingredient, index) => (
                 <IngredientInput
                   key={index}
@@ -76,10 +88,39 @@ const PageNewRecipe = () => {
               isDisabled={!canAddIngredient}
               onClick={() => {
                 setIngredients([...ingredients, { name: "", amount: "" }]);
-                setCanAddIngredient(false);
               }}
             >
               Add ingredient
+            </Button>
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Steps</FormLabel>
+            <Flex direction="column" gap={3}>
+              {steps.map((step, index) => (
+                <Textarea
+                  key={index}
+                  value={step}
+                  resize="none"
+                  overflow="hidden"
+                  onChange={(e) => {
+                    e.target.style.height = "5px";
+                    e.target.style.height = e.target.scrollHeight + "px";
+                    const list = [...steps];
+                    list[index] = e.target.value;
+                    setSteps(list);
+                  }}
+                />
+              ))}
+            </Flex>
+            <Button
+              marginTop={3}
+              isDisabled={!canAddStep}
+              onClick={() => {
+                setSteps([...steps, ""]);
+              }}
+            >
+              Add Step
             </Button>
           </FormControl>
         </VStack>
