@@ -30,6 +30,7 @@ const PageLogin = () => {
     axios
       .post("http://localhost:3000/api/users/auth", user)
       .then((res) => {
+        console.log(res.data.user);
         signIn({
           token: res.data.token,
           expiresIn: 3600,

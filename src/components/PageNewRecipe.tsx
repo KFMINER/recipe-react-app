@@ -12,9 +12,12 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import IngredientInput from "./IngredientInput";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { FaImage } from "react-icons/fa";
 import ImageSelectButton from "./ImageSelectButton";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAuthUser } from "react-auth-kit";
 
 interface Ingredient {
   [key: string]: string | undefined;
@@ -30,6 +33,9 @@ const PageNewRecipe = () => {
   const [canAddIngredient, setCanAddIngredient] = useState(false);
   const [canAddStep, setCanAddStep] = useState(false);
   const [image, setImage] = useState<File>();
+  const navigate = useNavigate();
+  const nameRef = useRef<HTMLInputElement>(null);
+  const auth = useAuthUser();
 
   useEffect(() => {
     checkForEmptyIngredients();
@@ -54,13 +60,46 @@ const PageNewRecipe = () => {
     });
   };
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const recipe = {
+      name: nameRef.current?.value,
+      ingredients: ingredients,
+      steps: steps,
+    };
+    //console.log(recipe);
+    //console.log(image);
+
+    const formData = new FormData();
+    formData.append("userId", auth()!.id);
+    formData.append("name", nameRef.current!.value);
+    formData.append("ingredients", JSON.stringify(ingredients));
+    formData.append("steps", JSON.stringify(steps));
+
+    if (image) {
+      formData.append("image", image!);
+    }
+    console.log(image);
+    console.log(formData);
+    console.log(auth());
+
+    axios
+      .post("http://localhost:3000/api/recipes", formData)
+      .then((res) => {
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <Center>
         <VStack width="700px" marginTop={10}>
           <FormControl isRequired>
             <FormLabel>Name</FormLabel>
-            <Input type="text" placeholder="Tasty Bolognese" />
+            <Input type="text" placeholder="Tasty Bolognese" ref={nameRef} />
           </FormControl>
 
           <FormControl>
@@ -140,6 +179,13 @@ const PageNewRecipe = () => {
               />
             </HStack>
           </FormControl>
+
+          <HStack width="100%" marginTop={10}>
+            <Button type="submit" colorScheme="green">
+              Create Recipe
+            </Button>
+            <Button onClick={() => navigate("/")}>Cancel</Button>
+          </HStack>
         </VStack>
       </Center>
     </form>
