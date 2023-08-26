@@ -1,19 +1,35 @@
-import { Grid, GridItem, List, ListItem } from "@chakra-ui/react";
+import {
+  Grid,
+  GridItem,
+  List,
+  ListItem,
+  Image,
+  Flex,
+  Card,
+  SimpleGrid,
+  CardBody,
+  VStack,
+  Heading,
+  Center,
+} from "@chakra-ui/react";
 import SideNav from "./sideNav";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuthUser } from "react-auth-kit";
+import RecipeCard from "./RecipeCard";
 
 interface Ingredient {
   name: string;
   amount: string;
 }
 
-interface Recipe {
+export interface Recipe {
+  id: number;
   name: string;
   ingredients: Ingredient[];
   steps: string[];
   image: File;
+  isFavorite?: boolean;
 }
 
 const PageMyRecipes = () => {
@@ -27,7 +43,6 @@ const PageMyRecipes = () => {
       })
       .then((res) => {
         setRecipes(res.data.recipes);
-        console.log(recipes);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -37,12 +52,19 @@ const PageMyRecipes = () => {
       <GridItem area="aside">
         <SideNav />
       </GridItem>
-      <GridItem area="main">
-        <List>
-          {recipes.map((recipe, index) => (
-            <ListItem key={index}>{recipe.name}</ListItem>
-          ))}
-        </List>
+      <GridItem area="main" bg="gray.100">
+        <Center>
+          <SimpleGrid
+            minChildWidth="250px"
+            spacing={5}
+            padding={10}
+            width="90%"
+          >
+            {recipes.map((recipe, index) => (
+              <RecipeCard key={index} recipe={recipe} />
+            ))}
+          </SimpleGrid>
+        </Center>
       </GridItem>
     </Grid>
   );
