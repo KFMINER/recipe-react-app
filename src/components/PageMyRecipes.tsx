@@ -54,16 +54,11 @@ const PageMyRecipes = () => {
       </GridItem>
       <GridItem area="main" bg="gray.100">
         <Center>
-          <SimpleGrid
-            minChildWidth="250px"
-            spacing={5}
-            padding={10}
-            width="90%"
-          >
+          <Flex gap={10} padding={10} width="90%" flexWrap="wrap">
             {recipes.map((recipe, index) => (
               <RecipeCard key={index} recipe={recipe} />
             ))}
-          </SimpleGrid>
+          </Flex>
         </Center>
       </GridItem>
     </Grid>
