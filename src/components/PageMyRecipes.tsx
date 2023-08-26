@@ -1,22 +1,10 @@
-import {
-  Grid,
-  GridItem,
-  List,
-  ListItem,
-  Image,
-  Flex,
-  Card,
-  SimpleGrid,
-  CardBody,
-  VStack,
-  Heading,
-  Center,
-} from "@chakra-ui/react";
+import { Grid, GridItem, Flex, Center } from "@chakra-ui/react";
 import SideNav from "./sideNav";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuthUser } from "react-auth-kit";
 import RecipeCard from "./RecipeCard";
+import { useSearchParams } from "react-router-dom";
 
 interface Ingredient {
   name: string;
@@ -33,19 +21,25 @@ export interface Recipe {
 }
 
 const PageMyRecipes = () => {
+  const [searchParams] = useSearchParams();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const auth = useAuthUser();
 
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/recipes/", {
-        params: { userId: auth()?.id },
+        params: {
+          authUserId: auth()?.id,
+          ...(searchParams.get("userId")
+            ? { userId: searchParams.get("userId") }
+            : {}),
+        },
       })
       .then((res) => {
         setRecipes(res.data.recipes);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [searchParams.get("userId")]);
 
   return (
     <Grid templateAreas={`"aside main"`} gridTemplateColumns={"250px 1fr"}>

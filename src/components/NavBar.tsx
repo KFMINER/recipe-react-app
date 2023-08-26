@@ -1,16 +1,17 @@
-import { Box, Button, Flex, HStack, Text } from "@chakra-ui/react";
+import { Box, Flex, HStack, Text } from "@chakra-ui/react";
 import { BsFillBox2HeartFill, BsFillBoxFill } from "react-icons/bs";
 import SearchBar from "./SearchBar";
 import UserInfo from "./UserInfo";
 import NavButton from "./NavButton";
 import { FaClipboardList, FaHome } from "react-icons/fa";
 import NavLogin from "./NavLogin";
-import { useIsAuthenticated } from "react-auth-kit";
+import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
+  const auth = useAuthUser();
 
   return (
     <HStack paddingX={5} bg="green.400" height="60px">
@@ -29,7 +30,10 @@ const NavBar = () => {
           <FaHome />
         </NavButton>
 
-        <NavButton label="My Recipes" onClick={() => navigate("/recipes")}>
+        <NavButton
+          label="My Recipes"
+          onClick={() => navigate(`/recipes?userId=${auth()?.id}`)}
+        >
           <FaClipboardList />
         </NavButton>
 

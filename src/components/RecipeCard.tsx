@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import LikeIconButton from "./LikeIconButton";
 import axios from "axios";
-import { useAuthUser } from "react-auth-kit";
+import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
 
 interface Props {
   recipe: Recipe;
@@ -21,6 +21,7 @@ interface Props {
 const RecipeCard = ({ recipe }: Props) => {
   const [isHovered, setHovered] = useState(false);
   const [isFavorite, setFavorite] = useState(false);
+  const isAuthenticated = useIsAuthenticated();
   const auth = useAuthUser();
 
   useEffect(() => {
@@ -83,14 +84,16 @@ const RecipeCard = ({ recipe }: Props) => {
             >
               {recipe.name}
             </Heading>
-            <LikeIconButton
-              onMouseEnter={() => setHovered(false)}
-              onMouseLeave={() => setHovered(true)}
-              onClick={() =>
-                isFavorite ? removeFromFavorites() : addToFavorites()
-              }
-              active={isFavorite}
-            />
+            {isAuthenticated() && (
+              <LikeIconButton
+                onMouseEnter={() => setHovered(false)}
+                onMouseLeave={() => setHovered(true)}
+                onClick={() =>
+                  isFavorite ? removeFromFavorites() : addToFavorites()
+                }
+                active={isFavorite}
+              />
+            )}
           </HStack>
         </VStack>
       </CardBody>
