@@ -1,5 +1,4 @@
 import {
-  Box,
   Card,
   CardBody,
   HStack,
@@ -7,12 +6,12 @@ import {
   Image,
   VStack,
 } from "@chakra-ui/react";
-import { Recipe } from "./PageMyRecipes";
+import { Recipe } from "./PageRecipes";
 import { useEffect, useState } from "react";
-import { AiOutlineHeart } from "react-icons/ai";
 import LikeIconButton from "./LikeIconButton";
 import axios from "axios";
 import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   recipe: Recipe;
@@ -23,6 +22,7 @@ const RecipeCard = ({ recipe }: Props) => {
   const [isFavorite, setFavorite] = useState(false);
   const isAuthenticated = useIsAuthenticated();
   const auth = useAuthUser();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (recipe.isFavorite !== null && recipe.isFavorite !== undefined) {
@@ -63,6 +63,7 @@ const RecipeCard = ({ recipe }: Props) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       cursor={isHovered ? "pointer" : "default"}
+      onClick={() => navigate(`/recipe/${recipe.id}`)}
     >
       <CardBody>
         <Image

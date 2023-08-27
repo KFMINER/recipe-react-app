@@ -4,7 +4,8 @@ import PageHome from "./components/PageHome";
 import PageLogin from "./components/PageLogin";
 import PageSignup from "./components/PageSignup";
 import PageNewRecipe from "./components/PageNewRecipe";
-import PageMyRecipes from "./components/PageMyRecipes";
+import PageRecipes from "./components/PageRecipes";
+import PageRecipe from "./components/PageRecipe";
 
 function App() {
   return (
@@ -15,7 +16,10 @@ function App() {
         <Route path="/login" element={<PageLogin />} />
         <Route path="/signup" element={<PageSignup />} />
         <Route path="/newRecipe" element={<PageNewRecipe />} />
-        <Route path="/recipes" element={<PageMyRecipes />} />
+        <Route path="/recipes" element={<PageRecipes />} />
+        <Route path="/recipe">
+          <Route path=":recipeId" element={<PageRecipe />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

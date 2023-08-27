@@ -20,7 +20,7 @@ export interface Recipe {
   isFavorite?: boolean;
 }
 
-const PageMyRecipes = () => {
+const PageRecipes = () => {
   const [searchParams] = useSearchParams();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const auth = useAuthUser();
@@ -59,4 +59,4 @@ const PageMyRecipes = () => {
   );
 };
 
-export default PageMyRecipes;
+export default PageRecipes;
