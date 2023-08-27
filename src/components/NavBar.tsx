@@ -3,7 +3,7 @@ import { BsFillBox2HeartFill, BsFillBoxFill } from "react-icons/bs";
 import SearchBar from "./SearchBar";
 import UserInfo from "./UserInfo";
 import NavButton from "./NavButton";
-import { FaClipboardList, FaHome } from "react-icons/fa";
+import { FaClipboardList, FaHome, FaPlus } from "react-icons/fa";
 import NavLogin from "./NavLogin";
 import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
@@ -39,6 +39,10 @@ const NavBar = () => {
 
         <NavButton label="Favorites" onClick={() => console.log("favorites")}>
           <BsFillBox2HeartFill />
+        </NavButton>
+
+        <NavButton label="New..." onClick={() => navigate("/newRecipe")}>
+          <FaPlus />
         </NavButton>
       </HStack>
 
