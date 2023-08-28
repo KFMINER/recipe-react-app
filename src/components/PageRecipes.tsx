@@ -1,45 +1,19 @@
-import { Grid, GridItem, Flex, Center, Box } from "@chakra-ui/react";
-import SideNav from "./sideNav";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { Flex, Center, Box } from "@chakra-ui/react";
 import { useAuthUser } from "react-auth-kit";
 import RecipeCard from "./RecipeCard";
 import { useSearchParams } from "react-router-dom";
-
-interface Ingredient {
-  name: string;
-  amount: string;
-}
-
-export interface Recipe {
-  id: number;
-  name: string;
-  ingredients: Ingredient[];
-  steps: string[];
-  image: File;
-  isFavorite?: boolean;
-}
+import useRecipes from "../hooks/useRecipes";
 
 const PageRecipes = () => {
   const [searchParams] = useSearchParams();
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const auth = useAuthUser();
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/api/recipes/", {
-        params: {
-          authUserId: auth()?.id,
-          ...(searchParams.get("userId")
-            ? { userId: searchParams.get("userId") }
-            : {}),
-        },
-      })
-      .then((res) => {
-        setRecipes(res.data.recipes);
-      })
-      .catch((err) => console.log(err));
-  }, [searchParams.get("userId")]);
+  const params = {
+    userId: searchParams.get("userId"),
+    authUserId: auth()?.id,
+  };
+
+  const { recipes } = useRecipes(params);
 
   return (
     <Box bg="gray.100" minHeight="calc(100vh - 60px)">

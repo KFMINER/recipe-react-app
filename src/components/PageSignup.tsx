@@ -5,13 +5,14 @@ import {
   InputLeftElement,
   VStack,
 } from "@chakra-ui/react";
-import axios from "axios";
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { BiSolidUser } from "react-icons/bi";
 import { FaKey } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import userService from "../services/user-service";
 
 const PageSignup = () => {
+  const [error, setError] = useState(false);
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
@@ -23,10 +24,11 @@ const PageSignup = () => {
       username: usernameRef.current?.value,
       password: passwordRef.current?.value,
     };
-    axios
-      .post("http://localhost:3000/api/users/", user)
-      .then((res) => navigate("/login"))
-      .catch((err) => console.log(err.message));
+
+    const { request, cancel } = userService.create(user);
+    request
+      .then(() => navigate("/login"))
+      .catch((err) => setError(err.message));
   };
 
   return (

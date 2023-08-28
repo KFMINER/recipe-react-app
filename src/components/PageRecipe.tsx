@@ -1,8 +1,5 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { useAuthUser } from "react-auth-kit";
-import { Recipe } from "./PageRecipes";
 import {
   Box,
   Center,
@@ -18,21 +15,20 @@ import {
   Td,
   Divider,
   Text,
+  HStack,
+  Button,
 } from "@chakra-ui/react";
+import { BsHeartFill } from "react-icons/bs";
+import { FaFilePdf } from "react-icons/fa6";
+import { FaUserCircle } from "react-icons/fa";
+import { AiFillEdit } from "react-icons/ai";
+import { RiDeleteBin6Fill } from "react-icons/ri";
+import useRecipe from "../hooks/useRecipe";
 
 const PageRecipe = () => {
-  const [recipe, setRecipe] = useState<Recipe>();
   const { recipeId } = useParams();
+  const { recipe } = useRecipe(recipeId!);
   const auth = useAuthUser();
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3000/api/recipes/${recipeId}`, {
-        params: { authUserId: auth()?.id },
-      })
-      .then((res) => setRecipe(res.data))
-      .catch((err) => console.log(err));
-  }, []);
 
   return (
     <Box bg="gray.100" minHeight="calc(100vh - 60px)">
@@ -54,6 +50,26 @@ const PageRecipe = () => {
                 height="428px"
                 fit="cover"
               />
+
+              <HStack w="100%" justifyContent="space-between">
+                <HStack>
+                  <Box width="40px" color="green.400">
+                    <FaUserCircle fontSize="40px" />
+                  </Box>
+                  <Text fontSize="18px">KFMINER</Text>
+                  <Text>-</Text>
+                  <Text fontSize="14px" color="gray.500">
+                    27.08.2023
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Button leftIcon={<FaFilePdf />}>Export to PDF</Button>
+                  <Button leftIcon={<BsHeartFill />} colorScheme="red">
+                    Save Recipe
+                  </Button>
+                </HStack>
+              </HStack>
+
               <Divider />
               <Heading fontWeight="semibold" size="lg">
                 Ingredients
@@ -76,6 +92,7 @@ const PageRecipe = () => {
                   </Tbody>
                 </Table>
               </TableContainer>
+
               <Divider />
               <Heading fontWeight="semibold" size="lg">
                 Method
@@ -85,6 +102,18 @@ const PageRecipe = () => {
                   {step}
                 </Text>
               ))}
+
+              {auth()?.id === recipe?.user_id && (
+                <>
+                  <Divider />
+                  <HStack w="100%" justifyContent="right">
+                    <Button leftIcon={<AiFillEdit />}>Edit</Button>
+                    <Button leftIcon={<RiDeleteBin6Fill />} colorScheme="red">
+                      Delete
+                    </Button>
+                  </HStack>
+                </>
+              )}
             </VStack>
           </Center>
         </Box>

@@ -6,12 +6,12 @@ import {
   Image,
   VStack,
 } from "@chakra-ui/react";
-import { Recipe } from "./PageRecipes";
 import { useEffect, useState } from "react";
 import LikeIconButton from "./LikeIconButton";
-import axios from "axios";
 import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
+import { Recipe } from "../services/recipe-service";
+import useFavorites from "../hooks/useFavorites";
 
 interface Props {
   recipe: Recipe;
@@ -23,6 +23,7 @@ const RecipeCard = ({ recipe }: Props) => {
   const isAuthenticated = useIsAuthenticated();
   const auth = useAuthUser();
   const navigate = useNavigate();
+  const favorites = useFavorites();
 
   useEffect(() => {
     if (recipe.isFavorite !== null && recipe.isFavorite !== undefined) {
@@ -32,28 +33,12 @@ const RecipeCard = ({ recipe }: Props) => {
 
   const addToFavorites = () => {
     setFavorite(true);
-    const favorite = {
-      userId: auth()?.id,
-      recipeId: recipe.id,
-    };
-    axios
-      .post("http://localhost:3000/api/recipes/favorites", favorite)
-      .catch((err) => {
-        setFavorite(false);
-        console.log(err);
-      });
+    favorites.create(auth()?.id, recipe.id);
   };
 
   const removeFromFavorites = () => {
     setFavorite(false);
-    axios
-      .delete(
-        `http://localhost:3000/api/recipes/favorites/${auth()?.id}/${recipe.id}`
-      )
-      .catch((err) => {
-        setFavorite(true);
-        console.log(err);
-      });
+    favorites.del(auth()?.id, recipe.id);
   };
 
   return (

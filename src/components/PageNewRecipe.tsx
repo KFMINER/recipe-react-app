@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Center,
   Flex,
@@ -7,17 +6,15 @@ import {
   FormLabel,
   HStack,
   Input,
-  Text,
   Textarea,
   VStack,
 } from "@chakra-ui/react";
 import IngredientInput from "./IngredientInput";
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
-import { FaImage } from "react-icons/fa";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import ImageSelectButton from "./ImageSelectButton";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useAuthUser } from "react-auth-kit";
+import recipeService from "../services/recipe-service";
 
 interface Ingredient {
   [key: string]: string | undefined;
@@ -36,6 +33,7 @@ const PageNewRecipe = () => {
   const navigate = useNavigate();
   const nameRef = useRef<HTMLInputElement>(null);
   const auth = useAuthUser();
+  const [error, setError] = useState("");
 
   useEffect(() => {
     checkForEmptyIngredients();
@@ -62,13 +60,6 @@ const PageNewRecipe = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const recipe = {
-      name: nameRef.current?.value,
-      ingredients: ingredients,
-      steps: steps,
-    };
-    //console.log(recipe);
-    //console.log(image);
 
     const formData = new FormData();
     formData.append("userId", auth()!.id);
@@ -79,18 +70,9 @@ const PageNewRecipe = () => {
     if (image) {
       formData.append("image", image!);
     }
-    console.log(image);
-    console.log(formData);
-    console.log(auth());
 
-    axios
-      .post("http://localhost:3000/api/recipes", formData)
-      .then((res) => {
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const { request, cancel } = recipeService.create(formData);
+    request.then((res) => navigate("/")).catch((err) => setError(err.message));
   };
 
   return (
