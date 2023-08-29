@@ -1,20 +1,29 @@
 import { useEffect, useState } from "react";
-import recipeService, { Recipe } from "../services/recipe-service";
+import { Recipe } from "../services/recipe-service";
 import { CanceledError } from "../services/api-client";
-import favoriteService, { Favorite } from "../services/favorite-service";
+import favoriteService from "../services/favorite-service";
+import { useAuthUser } from "react-auth-kit";
 
-const usefavorites = () => {
+const usefavorites = (recipe: Recipe) => {
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
+  const [isFavorite, setFavorite] = useState(false);
+  const auth = useAuthUser();
 
-  const create = (userId: string | number, recipeId: string | number) => {
+  useEffect(() => {
+    if (recipe.isFavorite !== null && recipe.isFavorite !== undefined) {
+      setFavorite(recipe.isFavorite);
+    }
+  }, []);
+
+  const createFavorite = (recipeId: string | number) => {
     const favorite = {
-      userId: userId,
+      userId: auth()?.id,
       recipeId: recipeId,
     };
 
     const { request, cancel } = favoriteService.create(favorite);
-    request.catch((err) => {
+    request.then(() => setFavorite(true)).catch((err) => {
       if (err instanceof CanceledError) return;
       setError(err.message);
     });
@@ -22,9 +31,9 @@ const usefavorites = () => {
     return () => cancel();
   }
 
-  const del = (userId: string | number, recipeId: string | number) => {
-    const { request, cancel } = favoriteService.delete(userId.toString(), recipeId.toString())
-    request.catch((err) => {
+  const deleteFavorite = (recipeId: string | number) => {
+    const { request, cancel } = favoriteService.delete(auth()?.id.toString(), recipeId.toString())
+    request.then(() => setFavorite(false)).catch((err) => {
       if (err instanceof CanceledError) return;
       setError(err.message);
     });
@@ -32,7 +41,7 @@ const usefavorites = () => {
     return () => cancel();
   }
 
-  return { create, del, error, isLoading, setError };
+  return { createFavorite, deleteFavorite, error, isFavorite };
 }
 
 export default usefavorites;

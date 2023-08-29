@@ -6,9 +6,9 @@ import {
   Image,
   VStack,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LikeIconButton from "./LikeIconButton";
-import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
+import { useIsAuthenticated } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
 import { Recipe } from "../services/recipe-service";
 import useFavorites from "../hooks/useFavorites";
@@ -19,27 +19,9 @@ interface Props {
 
 const RecipeCard = ({ recipe }: Props) => {
   const [isHovered, setHovered] = useState(false);
-  const [isFavorite, setFavorite] = useState(false);
   const isAuthenticated = useIsAuthenticated();
-  const auth = useAuthUser();
   const navigate = useNavigate();
-  const favorites = useFavorites();
-
-  useEffect(() => {
-    if (recipe.isFavorite !== null && recipe.isFavorite !== undefined) {
-      setFavorite(recipe.isFavorite);
-    }
-  }, []);
-
-  const addToFavorites = () => {
-    setFavorite(true);
-    favorites.create(auth()?.id, recipe.id);
-  };
-
-  const removeFromFavorites = () => {
-    setFavorite(false);
-    favorites.del(auth()?.id, recipe.id);
-  };
+  const { createFavorite, deleteFavorite, isFavorite } = useFavorites(recipe);
 
   return (
     <Card
@@ -75,7 +57,9 @@ const RecipeCard = ({ recipe }: Props) => {
                 onMouseEnter={() => setHovered(false)}
                 onMouseLeave={() => setHovered(true)}
                 onClick={() =>
-                  isFavorite ? removeFromFavorites() : addToFavorites()
+                  isFavorite
+                    ? deleteFavorite(recipe.id)
+                    : createFavorite(recipe.id)
                 }
                 active={isFavorite}
               />
