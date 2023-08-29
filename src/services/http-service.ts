@@ -41,7 +41,7 @@ class HttpService {
     return { request, cancel: () => controller.abort() };
   }
 
-  delete(id: string, id2?: string) {
+  delete(id: string | number, id2?: string | number) {
     const controller = new AbortController();
     let request = null;
     if (!id2) {

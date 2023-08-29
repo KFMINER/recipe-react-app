@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuthUser } from "react-auth-kit";
 import {
   Box,
@@ -26,9 +26,11 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import useRecipe from "../hooks/useRecipe";
 import useFavorites from "../hooks/useFavorites";
 import { useEffect, useState } from "react";
+import recipeService from "../services/recipe-service";
 
 const PageRecipe = () => {
   const auth = useAuthUser();
+  const navigate = useNavigate();
   const { recipeId } = useParams();
   const { recipe, isLoading } = useRecipe(recipeId!, {
     authUserId: auth()?.id,
@@ -39,6 +41,11 @@ const PageRecipe = () => {
   useEffect(() => {
     setRecipe(recipe);
   }, [recipe]);
+
+  const handleDelete = () => {
+    const { request, cancel } = recipeService.delete(recipe!.id);
+    request.then(() => navigate("/home"));
+  };
 
   return (
     <Box bg="gray.100" minHeight="calc(100vh - 60px)">
@@ -132,7 +139,11 @@ const PageRecipe = () => {
                   <Divider />
                   <HStack w="100%" justifyContent="right">
                     <Button leftIcon={<AiFillEdit />}>Edit</Button>
-                    <Button leftIcon={<RiDeleteBin6Fill />} colorScheme="red">
+                    <Button
+                      leftIcon={<RiDeleteBin6Fill />}
+                      colorScheme="red"
+                      onClick={handleDelete}
+                    >
                       Delete
                     </Button>
                   </HStack>
