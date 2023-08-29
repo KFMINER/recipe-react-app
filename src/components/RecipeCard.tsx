@@ -6,7 +6,7 @@ import {
   Image,
   VStack,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LikeIconButton from "./LikeIconButton";
 import { useIsAuthenticated } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +21,12 @@ const RecipeCard = ({ recipe }: Props) => {
   const [isHovered, setHovered] = useState(false);
   const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
-  const { createFavorite, deleteFavorite, isFavorite } = useFavorites(recipe);
+  const { createFavorite, deleteFavorite, isFavorite, setRecipe } =
+    useFavorites();
+
+  useEffect(() => {
+    setRecipe(recipe);
+  }, []);
 
   return (
     <Card
@@ -30,7 +35,11 @@ const RecipeCard = ({ recipe }: Props) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       cursor={isHovered ? "pointer" : "default"}
-      onClick={() => navigate(`/recipe/${recipe.id}`)}
+      onClick={() => {
+        if (isHovered) {
+          navigate(`/recipe/${recipe.id}`);
+        }
+      }}
     >
       <CardBody>
         <Image

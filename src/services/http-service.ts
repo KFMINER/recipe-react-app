@@ -16,16 +16,15 @@ class HttpService {
     return { request, cancel: () => controller.abort() };
   }
 
-  get<T>(id: string, id2?: string) {
+  get<T>(id: string, id2?: string, params?: object) {
     const controller = new AbortController();
     let request = null;
     if (!id2) {
-      console.log("tes1");
       request = apiClient.get<T>(this.endpoint + '/' + id, {
+        params: params,
         signal: controller.signal
       });
     } else {
-      console.log("test2");
       request = apiClient.get<T>(this.endpoint + '/' + id + '/' + id2, {
         signal: controller.signal
       });

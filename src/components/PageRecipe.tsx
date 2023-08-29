@@ -18,17 +18,27 @@ import {
   HStack,
   Button,
 } from "@chakra-ui/react";
-import { BsHeartFill } from "react-icons/bs";
+import { BsFillHeartbreakFill, BsHeartFill } from "react-icons/bs";
 import { FaFilePdf } from "react-icons/fa6";
 import { FaUserCircle } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import useRecipe from "../hooks/useRecipe";
+import useFavorites from "../hooks/useFavorites";
+import { useEffect, useState } from "react";
 
 const PageRecipe = () => {
-  const { recipeId } = useParams();
-  const { recipe } = useRecipe(recipeId!);
   const auth = useAuthUser();
+  const { recipeId } = useParams();
+  const { recipe, isLoading } = useRecipe(recipeId!, {
+    authUserId: auth()?.id,
+  });
+  const { createFavorite, deleteFavorite, setRecipe, isFavorite } =
+    useFavorites();
+
+  useEffect(() => {
+    setRecipe(recipe);
+  }, [recipe]);
 
   return (
     <Box bg="gray.100" minHeight="calc(100vh - 60px)">
@@ -64,9 +74,23 @@ const PageRecipe = () => {
                 </HStack>
                 <HStack>
                   <Button leftIcon={<FaFilePdf />}>Export to PDF</Button>
-                  <Button leftIcon={<BsHeartFill />} colorScheme="red">
-                    Save Recipe
-                  </Button>
+                  {isFavorite ? (
+                    <Button
+                      leftIcon={<BsFillHeartbreakFill />}
+                      colorScheme="red"
+                      onClick={() => deleteFavorite(recipe!.id)}
+                    >
+                      Remove Recipe
+                    </Button>
+                  ) : (
+                    <Button
+                      leftIcon={<BsHeartFill />}
+                      colorScheme="red"
+                      onClick={() => createFavorite(recipe!.id)}
+                    >
+                      Save Recipe
+                    </Button>
+                  )}
                 </HStack>
               </HStack>
 

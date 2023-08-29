@@ -4,17 +4,18 @@ import { CanceledError } from "../services/api-client";
 import favoriteService from "../services/favorite-service";
 import { useAuthUser } from "react-auth-kit";
 
-const usefavorites = (recipe: Recipe) => {
+const usefavorites = () => {
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [isFavorite, setFavorite] = useState(false);
+  const [recipe, setRecipe] = useState<Recipe>();
   const auth = useAuthUser();
 
   useEffect(() => {
-    if (recipe.isFavorite !== null && recipe.isFavorite !== undefined) {
+    if (recipe?.isFavorite !== null && recipe?.isFavorite !== undefined) {
       setFavorite(recipe.isFavorite);
     }
-  }, []);
+  }, [recipe]);
 
   const createFavorite = (recipeId: string | number) => {
     const favorite = {
@@ -41,7 +42,7 @@ const usefavorites = (recipe: Recipe) => {
     return () => cancel();
   }
 
-  return { createFavorite, deleteFavorite, error, isFavorite };
+  return { createFavorite, deleteFavorite, error, isFavorite, setRecipe };
 }
 
 export default usefavorites;
