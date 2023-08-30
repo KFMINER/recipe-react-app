@@ -19,6 +19,8 @@ export interface Recipe {
   steps: Step[];
   image: File;
   isFavorite?: boolean;
+  created: number;
+  updated: number;
 }
 
 export default create('/recipes');

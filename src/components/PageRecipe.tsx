@@ -27,6 +27,7 @@ import useRecipe from "../hooks/useRecipe";
 import useFavorites from "../hooks/useFavorites";
 import { useEffect, useState } from "react";
 import recipeService from "../services/recipe-service";
+import useDate from "../hooks/useDate";
 
 const PageRecipe = () => {
   const auth = useAuthUser();
@@ -37,6 +38,7 @@ const PageRecipe = () => {
   });
   const { createFavorite, deleteFavorite, setRecipe, isFavorite } =
     useFavorites();
+  const { getDateFromSecondsFormatted } = useDate();
 
   useEffect(() => {
     if (recipe) {
@@ -46,7 +48,7 @@ const PageRecipe = () => {
 
   const handleDelete = () => {
     const { request, cancel } = recipeService.delete(recipe!.id);
-    request.then(() => navigate("/home"));
+    request.then(() => navigate("/"));
   };
 
   return (
@@ -78,7 +80,7 @@ const PageRecipe = () => {
                   <Text fontSize="18px">{auth()?.username}</Text>
                   <Text>-</Text>
                   <Text fontSize="14px" color="gray.500">
-                    27.08.2023
+                    {getDateFromSecondsFormatted(recipe?.updated)}
                   </Text>
                 </HStack>
                 <HStack>
