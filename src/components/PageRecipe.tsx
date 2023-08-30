@@ -17,6 +17,7 @@ import {
   Text,
   HStack,
   Button,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { BsFillHeartbreakFill, BsHeartFill } from "react-icons/bs";
 import { FaFilePdf } from "react-icons/fa6";
@@ -28,6 +29,7 @@ import useFavorites from "../hooks/useFavorites";
 import { useEffect, useState } from "react";
 import recipeService from "../services/recipe-service";
 import useDate from "../hooks/useDate";
+import DeleteDialog from "./DeleteDialog";
 
 const PageRecipe = () => {
   const auth = useAuthUser();
@@ -39,6 +41,7 @@ const PageRecipe = () => {
   const { createFavorite, deleteFavorite, setRecipe, isFavorite } =
     useFavorites();
   const { getDateFromSecondsFormatted } = useDate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (recipe) {
@@ -153,10 +156,15 @@ const PageRecipe = () => {
                     <Button
                       leftIcon={<RiDeleteBin6Fill />}
                       colorScheme="red"
-                      onClick={handleDelete}
+                      onClick={onOpen}
                     >
                       Delete
                     </Button>
+                    <DeleteDialog
+                      onClose={onClose}
+                      isOpen={isOpen}
+                      onConfirm={handleDelete}
+                    />
                   </HStack>
                 </>
               )}

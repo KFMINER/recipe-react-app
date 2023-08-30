@@ -205,7 +205,7 @@ const PageRecipeForm = () => {
                   </Button>
                 </FormControl>
 
-                <FormControl>
+                <FormControl isRequired>
                   <FormLabel>Image</FormLabel>
                   <HStack>
                     <ImageSelectButton
