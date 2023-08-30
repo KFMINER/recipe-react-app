@@ -87,7 +87,9 @@ const PageRecipe = () => {
                   </Text>
                 </HStack>
                 <HStack>
-                  <Button leftIcon={<FaFilePdf />}>Export to PDF</Button>
+                  <Button leftIcon={<FaFilePdf />} isDisabled>
+                    Export to PDF
+                  </Button>
                   {isFavorite ? (
                     <Button
                       leftIcon={<BsFillHeartbreakFill />}

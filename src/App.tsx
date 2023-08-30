@@ -1,6 +1,5 @@
 import NavBar from "./components/NavBar";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import PageHome from "./components/PageHome";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import PageLogin from "./components/PageLogin";
 import PageSignup from "./components/PageSignup";
 import PageRecipeForm from "./components/PageRecipeForm";
@@ -12,7 +11,7 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route path="/" element={<PageHome />} />
+        <Route path="/" element={<Navigate replace to="/recipes" />} />
         <Route path="/login" element={<PageLogin />} />
         <Route path="/signup" element={<PageSignup />} />
         <Route path="/recipeform" element={<PageRecipeForm />} />

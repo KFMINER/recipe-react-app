@@ -26,7 +26,7 @@ const NavBar = () => {
       <SearchBar />
 
       <HStack marginX={10} gap="15px">
-        <NavButton label="Home" onClick={() => console.log("home")}>
+        <NavButton label="Home" onClick={() => navigate("/recipes")}>
           <FaHome />
         </NavButton>
 
