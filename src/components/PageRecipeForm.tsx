@@ -16,6 +16,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuthUser } from "react-auth-kit";
 import recipeService, { Ingredient, Step } from "../services/recipe-service";
 import useRecipe from "../hooks/useRecipe";
+import StepInput from "./StepInput";
 
 const PageRecipeForm = () => {
   const auth = useAuthUser();
@@ -162,14 +163,10 @@ const PageRecipeForm = () => {
             <FormLabel>Steps</FormLabel>
             <Flex direction="column" gap={3}>
               {steps.map((step, index) => (
-                <Textarea
+                <StepInput
                   key={index}
-                  value={step.text}
-                  resize="none"
-                  overflow="hidden"
+                  text={step.text}
                   onChange={(e) => {
-                    e.target.style.height = "5px";
-                    e.target.style.height = e.target.scrollHeight + "px";
                     const list = [...steps];
                     list[index].text = e.target.value;
                     setSteps(list);
