@@ -75,7 +75,7 @@ const PageRecipe = () => {
                   <Box width="40px" color="green.400">
                     <FaUserCircle fontSize="40px" />
                   </Box>
-                  <Text fontSize="18px">KFMINER</Text>
+                  <Text fontSize="18px">{auth()?.username}</Text>
                   <Text>-</Text>
                   <Text fontSize="14px" color="gray.500">
                     27.08.2023
