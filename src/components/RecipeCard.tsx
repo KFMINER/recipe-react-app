@@ -37,7 +37,7 @@ const RecipeCard = ({ recipe }: Props) => {
       cursor={isHovered ? "pointer" : "default"}
       onClick={() => {
         if (isHovered) {
-          navigate(`/recipe/${recipe.id}`);
+          navigate(`/recipes/${recipe.id}`);
         }
       }}
     >

@@ -1,6 +1,8 @@
 import {
+  Box,
   Button,
   Center,
+  Divider,
   Flex,
   FormControl,
   FormLabel,
@@ -112,98 +114,119 @@ const PageRecipeForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Center>
-        <VStack width="700px" marginTop={10}>
-          <FormControl isRequired>
-            <FormLabel>Name</FormLabel>
-            <Input type="text" placeholder="Tasty Bolognese" ref={nameRef} />
-          </FormControl>
+      <Box bg="gray.100" minHeight="calc(100vh - 60px)">
+        <Center>
+          <Box
+            w="900px"
+            bg="white"
+            marginTop={10}
+            paddingY={10}
+            borderRadius={20}
+          >
+            <Center>
+              <VStack alignItems="start" gap={6} width="642px">
+                <FormControl isRequired>
+                  <FormLabel>Name</FormLabel>
+                  <Input
+                    type="text"
+                    placeholder="Tasty Bolognese"
+                    ref={nameRef}
+                  />
+                </FormControl>
 
-          <FormControl>
-            <FormLabel>Ingredients</FormLabel>
-            <Flex direction="column" gap={3}>
-              {ingredients.map((ingredient, index) => (
-                <IngredientInput
-                  key={index}
-                  name={ingredient.name}
-                  amount={ingredient.amount}
-                  onChangeName={(e) => {
-                    const list = [...ingredients];
-                    list[index].name = e.target.value;
-                    setIngredients(list);
-                  }}
-                  onChangeAmount={(e) => {
-                    const list = [...ingredients];
-                    list[index].amount = e.target.value;
-                    setIngredients(list);
-                  }}
-                  onDelete={() => {
-                    const list = [...ingredients];
-                    list.splice(index, 1);
-                    setIngredients(list);
-                  }}
-                />
-              ))}
-            </Flex>
-            <Button
-              marginTop={3}
-              isDisabled={!canAddIngredient}
-              onClick={() => {
-                setIngredients([
-                  ...ingredients,
-                  { id: 0, name: "", amount: "" },
-                ]);
-              }}
-            >
-              Add ingredient
-            </Button>
-          </FormControl>
+                <FormControl>
+                  <FormLabel>Ingredients</FormLabel>
+                  <Flex direction="column" gap={3}>
+                    {ingredients.map((ingredient, index) => (
+                      <IngredientInput
+                        key={index}
+                        name={ingredient.name}
+                        amount={ingredient.amount}
+                        onChangeName={(e) => {
+                          const list = [...ingredients];
+                          list[index].name = e.target.value;
+                          setIngredients(list);
+                        }}
+                        onChangeAmount={(e) => {
+                          const list = [...ingredients];
+                          list[index].amount = e.target.value;
+                          setIngredients(list);
+                        }}
+                        onDelete={() => {
+                          const list = [...ingredients];
+                          list.splice(index, 1);
+                          setIngredients(list);
+                        }}
+                      />
+                    ))}
+                  </Flex>
+                  <Button
+                    marginTop={3}
+                    isDisabled={!canAddIngredient}
+                    onClick={() => {
+                      setIngredients([
+                        ...ingredients,
+                        { id: 0, name: "", amount: "" },
+                      ]);
+                    }}
+                  >
+                    Add ingredient
+                  </Button>
+                </FormControl>
 
-          <FormControl>
-            <FormLabel>Steps</FormLabel>
-            <Flex direction="column" gap={3}>
-              {steps.map((step, index) => (
-                <StepInput
-                  key={index}
-                  text={step.text}
-                  onChange={(e) => {
-                    const list = [...steps];
-                    list[index].text = e.target.value;
-                    setSteps(list);
-                  }}
-                />
-              ))}
-            </Flex>
-            <Button
-              marginTop={3}
-              isDisabled={!canAddStep}
-              onClick={() => {
-                setSteps([...steps, { id: 0, text: "" }]);
-              }}
-            >
-              Add Step
-            </Button>
-          </FormControl>
+                <FormControl>
+                  <FormLabel>Steps</FormLabel>
+                  <Flex direction="column" gap={3}>
+                    {steps.map((step, index) => (
+                      <StepInput
+                        key={index}
+                        text={step.text}
+                        onChange={(e) => {
+                          const list = [...steps];
+                          list[index].text = e.target.value;
+                          setSteps(list);
+                        }}
+                        onDelete={() => {
+                          const list = [...steps];
+                          list.splice(index, 1);
+                          setSteps(list);
+                        }}
+                      />
+                    ))}
+                  </Flex>
+                  <Button
+                    marginTop={3}
+                    isDisabled={!canAddStep}
+                    onClick={() => {
+                      setSteps([...steps, { id: 0, text: "" }]);
+                    }}
+                  >
+                    Add Step
+                  </Button>
+                </FormControl>
 
-          <FormControl>
-            <FormLabel>Image</FormLabel>
-            <HStack>
-              <ImageSelectButton
-                onFileSelect={(file: File) => {
-                  setImage(file);
-                }}
-              />
-            </HStack>
-          </FormControl>
+                <FormControl>
+                  <FormLabel>Image</FormLabel>
+                  <HStack>
+                    <ImageSelectButton
+                      onFileSelect={(file: File) => {
+                        setImage(file);
+                      }}
+                    />
+                  </HStack>
+                </FormControl>
 
-          <HStack width="100%" marginTop={10}>
-            <Button type="submit" colorScheme="green">
-              Create Recipe
-            </Button>
-            <Button onClick={() => navigate("/")}>Cancel</Button>
-          </HStack>
-        </VStack>
-      </Center>
+                <HStack width="100%" marginTop={10}>
+                  <Button type="submit" colorScheme="green">
+                    {recipe ? "Edit Recipe" : "Create Recipe"}
+                  </Button>
+                  <Button onClick={() => navigate("/")}>Cancel</Button>
+                </HStack>
+              </VStack>
+            </Center>
+          </Box>
+        </Center>
+      </Box>
     </form>
   );
 };

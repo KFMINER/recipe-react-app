@@ -39,7 +39,9 @@ const PageRecipe = () => {
     useFavorites();
 
   useEffect(() => {
-    setRecipe(recipe);
+    if (recipe) {
+      setRecipe(recipe);
+    }
   }, [recipe]);
 
   const handleDelete = () => {

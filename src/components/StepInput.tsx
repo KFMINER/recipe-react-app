@@ -6,9 +6,10 @@ import useAutosizeTextArea from "../hooks/useAutosizeTextArea";
 interface Props {
   text: string;
   onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onDelete: () => void;
 }
 
-const StepInput = ({ text, onChange }: Props) => {
+const StepInput = ({ text, onChange, onDelete }: Props) => {
   const [value, setValue] = useState("");
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -30,7 +31,7 @@ const StepInput = ({ text, onChange }: Props) => {
           onChange(e);
         }}
       />
-      <Button colorScheme="red" size="md" height="42px">
+      <Button colorScheme="red" size="md" height="42px" onClick={onDelete}>
         <Box>
           <RiDeleteBin6Fill />
         </Box>
