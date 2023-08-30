@@ -37,7 +37,10 @@ const NavBar = () => {
           <FaClipboardList />
         </NavButton>
 
-        <NavButton label="Favorites" onClick={() => console.log("favorites")}>
+        <NavButton
+          label="Favorites"
+          onClick={() => navigate(`/recipes?favorites=true`)}
+        >
           <BsFillBox2HeartFill />
         </NavButton>
 

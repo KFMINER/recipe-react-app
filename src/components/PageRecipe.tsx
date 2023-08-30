@@ -94,7 +94,7 @@ const PageRecipe = () => {
                     <Button
                       leftIcon={<BsFillHeartbreakFill />}
                       colorScheme="red"
-                      onClick={() => deleteFavorite(recipe!.id)}
+                      onClick={() => deleteFavorite(recipe!)}
                     >
                       Remove Recipe
                     </Button>
@@ -102,7 +102,7 @@ const PageRecipe = () => {
                     <Button
                       leftIcon={<BsHeartFill />}
                       colorScheme="red"
-                      onClick={() => createFavorite(recipe!.id)}
+                      onClick={() => createFavorite(recipe!)}
                     >
                       Save Recipe
                     </Button>

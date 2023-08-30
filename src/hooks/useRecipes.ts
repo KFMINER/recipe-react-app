@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import recipeService, { Recipe } from "../services/recipe-service";
 import { CanceledError } from "../services/api-client";
+import { Params } from "../components/PageRecipes";
 
-const useRecipes = (params?: object) => {
+const useRecipes = (params?: Params) => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -22,7 +23,7 @@ const useRecipes = (params?: object) => {
       });
 
     return () => cancel();
-  }, []);
+  }, [params?.favorites, params?.userId]);
 
   return { recipes, error, isLoading, setRecipes, setError };
 }

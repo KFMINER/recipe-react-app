@@ -3,24 +3,41 @@ import { useAuthUser } from "react-auth-kit";
 import RecipeCard from "./RecipeCard";
 import { useSearchParams } from "react-router-dom";
 import useRecipes from "../hooks/useRecipes";
+import { useEffect, useState } from "react";
+
+export interface Params {
+  userId: string | null;
+  favorites: string | null;
+  authUserId: string;
+}
 
 const PageRecipes = () => {
   const [searchParams] = useSearchParams();
   const auth = useAuthUser();
 
-  const params = {
+  const params: Params = {
     userId: searchParams.get("userId"),
+    favorites: searchParams.get("favorites"),
     authUserId: auth()?.id,
   };
 
-  const { recipes } = useRecipes(params);
+  const { recipes, setRecipes } = useRecipes(params);
 
   return (
     <Box bg="gray.100" minHeight="calc(100vh - 60px)">
       <Center>
         <Flex gap={10} width="80%" flexWrap="wrap" marginTop={10}>
           {recipes.map((recipe, index) => (
-            <RecipeCard key={index} recipe={recipe} />
+            <RecipeCard
+              key={index}
+              recipe={recipe}
+              onFavoriteChange={(isFavorite) => {
+                if (!isFavorite && params.favorites) {
+                  const recipesFiltered = recipes.filter((r) => r.isFavorite);
+                  setRecipes(recipesFiltered);
+                }
+              }}
+            />
           ))}
         </Flex>
       </Center>

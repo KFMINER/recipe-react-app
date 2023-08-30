@@ -15,16 +15,20 @@ const usefavorites = () => {
     if (recipe?.isFavorite !== null && recipe?.isFavorite !== undefined) {
       setFavorite(recipe.isFavorite);
     }
-  }, [recipe]);
+  }, [recipe?.id]);
 
-  const createFavorite = (recipeId: string | number) => {
+  const createFavorite = (recipe: Recipe) => {
     const favorite = {
       userId: auth()?.id,
-      recipeId: recipeId,
+      recipeId: recipe.id,
     };
 
     const { request, cancel } = favoriteService.create(favorite);
-    request.then(() => setFavorite(true)).catch((err) => {
+    request
+    .then(() => {
+      setFavorite(true);
+      recipe.isFavorite = true;
+    }).catch((err) => {
       if (err instanceof CanceledError) return;
       setError(err.message);
     });
@@ -32,9 +36,13 @@ const usefavorites = () => {
     return () => cancel();
   }
 
-  const deleteFavorite = (recipeId: string | number) => {
-    const { request, cancel } = favoriteService.delete(auth()?.id.toString(), recipeId.toString())
-    request.then(() => setFavorite(false)).catch((err) => {
+  const deleteFavorite = (recipe: Recipe) => {
+    const { request, cancel } = favoriteService.delete(auth()?.id.toString(), recipe.id.toString())
+    request
+    .then(() => {
+      setFavorite(false);
+      recipe.isFavorite = false;
+    }).catch((err) => {
       if (err instanceof CanceledError) return;
       setError(err.message);
     });

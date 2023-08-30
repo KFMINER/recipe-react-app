@@ -15,10 +15,12 @@ import useFavorites from "../hooks/useFavorites";
 
 interface Props {
   recipe: Recipe;
+  onFavoriteChange: (isFavorite: boolean) => void;
 }
 
-const RecipeCard = ({ recipe }: Props) => {
+const RecipeCard = ({ recipe, onFavoriteChange }: Props) => {
   const [isHovered, setHovered] = useState(false);
+
   const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
   const { createFavorite, deleteFavorite, isFavorite, setRecipe } =
@@ -26,7 +28,13 @@ const RecipeCard = ({ recipe }: Props) => {
 
   useEffect(() => {
     setRecipe(recipe);
-  }, []);
+  }, [recipe.id]);
+
+  useEffect(() => {
+    onFavoriteChange(isFavorite);
+  }, [isFavorite]);
+
+  const handleLikeButtonClick = () => {};
 
   return (
     <Card
@@ -65,11 +73,10 @@ const RecipeCard = ({ recipe }: Props) => {
               <LikeIconButton
                 onMouseEnter={() => setHovered(false)}
                 onMouseLeave={() => setHovered(true)}
-                onClick={() =>
-                  isFavorite
-                    ? deleteFavorite(recipe.id)
-                    : createFavorite(recipe.id)
-                }
+                onClick={() => {
+                  //console.log(isFavorite);
+                  isFavorite ? deleteFavorite(recipe) : createFavorite(recipe);
+                }}
                 active={isFavorite}
               />
             )}
