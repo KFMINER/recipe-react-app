@@ -130,7 +130,7 @@ const PageRecipe = () => {
               </Heading>
               {recipe?.steps.map((step, index) => (
                 <Text key={index} wordBreak={"break-word"}>
-                  {step}
+                  {step.text}
                 </Text>
               ))}
 
@@ -138,7 +138,14 @@ const PageRecipe = () => {
                 <>
                   <Divider />
                   <HStack w="100%" justifyContent="right">
-                    <Button leftIcon={<AiFillEdit />}>Edit</Button>
+                    <Button
+                      leftIcon={<AiFillEdit />}
+                      onClick={() =>
+                        navigate(`/recipeform?recipeId=${recipe?.id}`)
+                      }
+                    >
+                      Edit
+                    </Button>
                     <Button
                       leftIcon={<RiDeleteBin6Fill />}
                       colorScheme="red"

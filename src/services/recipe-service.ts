@@ -1,8 +1,14 @@
 import create from "./http-service";
 
-interface Ingredient {
+export interface Ingredient {
+  id: number;
   name: string;
   amount: string;
+}
+
+export interface Step {
+  id: number;
+  text: string;
 }
 
 export interface Recipe {
@@ -10,7 +16,7 @@ export interface Recipe {
   user_id: number;
   name: string;
   ingredients: Ingredient[];
-  steps: string[];
+  steps: Step[];
   image: File;
   isFavorite?: boolean;
 }

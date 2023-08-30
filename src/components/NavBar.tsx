@@ -41,7 +41,7 @@ const NavBar = () => {
           <BsFillBox2HeartFill />
         </NavButton>
 
-        <NavButton label="New..." onClick={() => navigate("/newRecipe")}>
+        <NavButton label="New..." onClick={() => navigate("/recipeform")}>
           <FaPlus />
         </NavButton>
       </HStack>

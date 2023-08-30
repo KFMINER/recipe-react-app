@@ -12,27 +12,27 @@ import {
 import IngredientInput from "./IngredientInput";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import ImageSelectButton from "./ImageSelectButton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuthUser } from "react-auth-kit";
-import recipeService from "../services/recipe-service";
+import recipeService, { Ingredient, Step } from "../services/recipe-service";
+import useRecipe from "../hooks/useRecipe";
 
-interface Ingredient {
-  [key: string]: string | undefined;
-  name: string;
-  amount: string;
-}
-
-const PageNewRecipe = () => {
-  const [ingredients, setIngredients] = useState<Ingredient[]>([
-    { name: "", amount: "" },
-  ]);
-  const [steps, setSteps] = useState<string[]>([""]);
+const PageRecipeForm = () => {
+  const auth = useAuthUser();
+  const [searchParams] = useSearchParams();
+  const { recipe, isLoading, setRecipe } = useRecipe(
+    searchParams.get("recipeId"),
+    {
+      authUserId: auth()?.id,
+    }
+  );
+  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+  const [steps, setSteps] = useState<Step[]>([]);
   const [canAddIngredient, setCanAddIngredient] = useState(false);
   const [canAddStep, setCanAddStep] = useState(false);
   const [image, setImage] = useState<File>();
   const navigate = useNavigate();
   const nameRef = useRef<HTMLInputElement>(null);
-  const auth = useAuthUser();
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -40,6 +40,30 @@ const PageNewRecipe = () => {
     checkForEmptySteps();
   });
 
+  // Set recipe null if navigating to new-recipe-form from edit-recipe-form
+  useEffect(() => {
+    if (!searchParams.get("recipeId")) {
+      setRecipe(null);
+    }
+  }, [searchParams.get("recipeId")]);
+
+  // Fill in (or clear) input values if recipe changes
+  useEffect(() => {
+    if (recipe?.user_id === auth()?.id) {
+      nameRef.current!.value = recipe!.name;
+      setIngredients(recipe!.ingredients);
+      setSteps(recipe!.steps);
+    }
+
+    if (!recipe) {
+      nameRef.current!.value = "";
+      setIngredients([]);
+      setSteps([]);
+      setImage(undefined);
+    }
+  }, [recipe]);
+
+  // Check if list contains empty ingredients. Can't add new entry if empty ingredient exists
   const checkForEmptyIngredients = () => {
     setCanAddIngredient(true);
     ingredients.forEach((ingredient: Ingredient) => {
@@ -49,10 +73,11 @@ const PageNewRecipe = () => {
     });
   };
 
+  // Check if list contains empty steps. Can't add new entry if empty step exists
   const checkForEmptySteps = () => {
     setCanAddStep(true);
-    steps.forEach((step: string) => {
-      if (step.trim().length === 0) {
+    steps.forEach((step: Step) => {
+      if (step.text.trim().length === 0) {
         setCanAddStep(false);
       }
     });
@@ -71,8 +96,17 @@ const PageNewRecipe = () => {
       formData.append("image", image!);
     }
 
-    const { request, cancel } = recipeService.create(formData);
-    request.then((res) => navigate("/")).catch((err) => setError(err.message));
+    // Edit existing recipe
+    if (recipe !== undefined && recipe !== null) {
+      formData.append("recipeId", recipe.id.toString());
+      const { request, cancel } = recipeService.update(recipe.id, formData);
+      request.then(() => navigate("/")).catch((err) => setError(err.message));
+    } else {
+      const { request, cancel } = recipeService.create(formData);
+      request
+        .then((res) => navigate("/"))
+        .catch((err) => setError(err.message));
+    }
   };
 
   return (
@@ -114,7 +148,10 @@ const PageNewRecipe = () => {
               marginTop={3}
               isDisabled={!canAddIngredient}
               onClick={() => {
-                setIngredients([...ingredients, { name: "", amount: "" }]);
+                setIngredients([
+                  ...ingredients,
+                  { id: 0, name: "", amount: "" },
+                ]);
               }}
             >
               Add ingredient
@@ -127,14 +164,14 @@ const PageNewRecipe = () => {
               {steps.map((step, index) => (
                 <Textarea
                   key={index}
-                  value={step}
+                  value={step.text}
                   resize="none"
                   overflow="hidden"
                   onChange={(e) => {
                     e.target.style.height = "5px";
                     e.target.style.height = e.target.scrollHeight + "px";
                     const list = [...steps];
-                    list[index] = e.target.value;
+                    list[index].text = e.target.value;
                     setSteps(list);
                   }}
                 />
@@ -144,7 +181,7 @@ const PageNewRecipe = () => {
               marginTop={3}
               isDisabled={!canAddStep}
               onClick={() => {
-                setSteps([...steps, ""]);
+                setSteps([...steps, { id: 0, text: "" }]);
               }}
             >
               Add Step
@@ -174,4 +211,4 @@ const PageNewRecipe = () => {
   );
 };
 
-export default PageNewRecipe;
+export default PageRecipeForm;

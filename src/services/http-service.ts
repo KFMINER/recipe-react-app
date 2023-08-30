@@ -56,6 +56,14 @@ class HttpService {
     return { request, cancel: () => controller.abort() };
   }
 
+  update(id: string | number, data: object) {
+    const controller = new AbortController();
+    const request = apiClient.put(this.endpoint + '/' + id, data, {
+      signal: controller.signal
+    });
+    return { request, cancel: () => controller.abort() };
+  }
+
 }
 
 const create = (endpoint: string) => new HttpService(endpoint);
