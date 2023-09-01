@@ -6,6 +6,9 @@ import {
   FormControl,
   FormErrorMessage,
   VStack,
+  Box,
+  Text,
+  Link,
 } from "@chakra-ui/react";
 import { FormEvent, useRef, useState } from "react";
 import { BiSolidUser } from "react-icons/bi";
@@ -25,6 +28,9 @@ const PageLogin = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
+    if (!usernameRef.current?.value || !passwordRef.current?.value) {
+      return;
+    }
     const { request, cancel } = userService.get<User>(
       usernameRef.current!.value,
       passwordRef.current!.value
@@ -49,32 +55,64 @@ const PageLogin = () => {
   };
 
   return (
-    <Center marginTop={10}>
-      <form onSubmit={handleSubmit}>
-        <VStack>
-          <FormControl isInvalid={error}>
-            <InputGroup>
-              <Input type="text" placeholder="Username" ref={usernameRef} />
-              <InputLeftElement>
-                <BiSolidUser size={20} color="gray" />
-              </InputLeftElement>
-            </InputGroup>
-          </FormControl>
+    <Box bg="gray.100" minHeight="calc(100vh - 60px)">
+      <Center>
+        <Box
+          w="500px"
+          bg="white"
+          marginTop={10}
+          paddingY="70px"
+          borderRadius={20}
+        >
+          <Center>
+            <form onSubmit={handleSubmit}>
+              <VStack gap={2}>
+                <FormControl isInvalid={error}>
+                  <InputGroup>
+                    <Input
+                      type="text"
+                      placeholder="Username"
+                      ref={usernameRef}
+                    />
+                    <InputLeftElement>
+                      <BiSolidUser size={20} color="gray" />
+                    </InputLeftElement>
+                  </InputGroup>
+                </FormControl>
 
-          <FormControl isInvalid={error}>
-            <InputGroup>
-              <Input type="password" placeholder="Password" ref={passwordRef} />
-              <InputLeftElement>
-                <FaKey size={16} color="gray" />
-              </InputLeftElement>
-            </InputGroup>
-            <FormErrorMessage>Invalid username or password.</FormErrorMessage>
-          </FormControl>
+                <FormControl isInvalid={error}>
+                  <InputGroup>
+                    <Input
+                      type="password"
+                      placeholder="Password"
+                      ref={passwordRef}
+                    />
+                    <InputLeftElement>
+                      <FaKey size={16} color="gray" />
+                    </InputLeftElement>
+                  </InputGroup>
+                  <FormErrorMessage>
+                    Invalid username or password.
+                  </FormErrorMessage>
+                </FormControl>
 
-          <Input type="submit" value="Login" bg="green.400" color="white" />
-        </VStack>
-      </form>
-    </Center>
+                <Input
+                  type="submit"
+                  value="Login"
+                  bg="green.400"
+                  color="white"
+                  marginTop={3}
+                />
+                <Text fontSize="sm">
+                  Noch kein Account?{" "}
+                  <Link color="green.600">Jetzt registrieren</Link>
+                </Text>
+              </VStack>
+            </form>
+          </Center>
+        </Box>
+      </Center>
+    </Box>
   );
 };
 
