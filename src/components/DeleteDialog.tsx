@@ -7,7 +7,8 @@ import {
   AlertDialogOverlay,
   Button,
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   onConfirm: () => void;
@@ -17,6 +18,7 @@ interface Props {
 
 const DeleteDialog = ({ onConfirm, isOpen, onClose }: Props) => {
   const cancelRef = useRef<HTMLButtonElement>(null);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -28,12 +30,10 @@ const DeleteDialog = ({ onConfirm, isOpen, onClose }: Props) => {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete Recipe
+              {t("deleteDialogHeader")}
             </AlertDialogHeader>
 
-            <AlertDialogBody>
-              Are you sure? You can't undo this action afterwards.
-            </AlertDialogBody>
+            <AlertDialogBody>{t("deleteDialogBody")}</AlertDialogBody>
 
             <AlertDialogFooter>
               <Button
@@ -42,7 +42,7 @@ const DeleteDialog = ({ onConfirm, isOpen, onClose }: Props) => {
                   onClose();
                 }}
               >
-                Cancel
+                {t("deleteDialogButtonCancel")}
               </Button>
               <Button
                 colorScheme="red"
@@ -52,7 +52,7 @@ const DeleteDialog = ({ onConfirm, isOpen, onClose }: Props) => {
                 }}
                 ml={3}
               >
-                Delete
+                {t("deleteDialogButtonConfirm")}
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

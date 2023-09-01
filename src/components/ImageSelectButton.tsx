@@ -1,6 +1,7 @@
 import { Box, HStack, Text } from "@chakra-ui/react";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { FaImage } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   onFileSelect: (file: File) => void;
@@ -9,6 +10,7 @@ interface Props {
 const ImageSelectButton = ({ onFileSelect }: Props) => {
   const [fileName, setFileName] = useState<string>();
   const [isHovered, setHovered] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -34,7 +36,7 @@ const ImageSelectButton = ({ onFileSelect }: Props) => {
                 <FaImage size={20} />
               </Box>
               <Text fontSize="md" fontWeight="semibold">
-                Select image...
+                {t("imageSelectButton")}
               </Text>
             </HStack>
           </Box>

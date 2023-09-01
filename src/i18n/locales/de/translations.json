@@ -1,0 +1,39 @@
+{
+  "navHome": "Startseite",
+  "navMyRecipes": "Meine Rezepte",
+  "navFavorites": "Favoriten",
+  "navNewRecipe": "Neu...",
+
+  "recipeFormLabelName": "Name",
+  "recipeFormLabelIngredients": "Zutaten",
+  "recipeFormLabelSteps": "Zubereitungsschritte",
+  "recipeFormLabelImage": "Bild",
+  "recipeFormPlaceholderName": "Rezeptname",
+  "recipeFormButtonAddIngredient": "Zutat hinzufügen",
+  "recipeFormButtonAddStep": "Schritt hinzufügen",
+  "recipeFormButtonCreate": "Rezept erstellen",
+  "recipeFormButtonEdit": "Rezept bearbeiten",
+  "recipeFormButtonCancel": "Abbrechen",
+
+  "imageSelectButton": "Wähle Bild...",
+
+  "ingredientInputPlaceholderName": "Name",
+  "ingredientInputPlaceholderAmount": "Menge",
+
+  "recipePageButtonExportPDF": "Exportieren",
+  "recipePageButtonRemove": "Rezept entfernen",
+  "recipePageButtonSave": "Rezept speichern",
+  "recipePageButtonEdit": "Bearbeiten",
+  "recipePageButtonDelete": "Löschen",
+  "recipePageHeadingIngredients": "Zutaten",
+  "recipePageHeadingSteps": "Zubereitungsschritte",
+  "recipePageTableIngredientsColName": "Name",
+  "recipePageTableIngredientsColAmount": "Menge",
+
+  "deleteDialogHeader": "Rezept löschen",
+  "deleteDialogBody": "Bist du sicher, dass du dieses Rezept dauerhaft löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden.",
+  "deleteDialogButtonCancel": "Abbrechen",
+  "deleteDialogButtonConfirm": "Löschen",
+
+  "userInfoMenuItemSignOut": "Abmelden"
+}

@@ -13,6 +13,7 @@ import { FaKey } from "react-icons/fa";
 import useSignIn from "react-auth-kit/dist/hooks/useSignIn";
 import { useNavigate } from "react-router-dom";
 import userService, { User } from "../services/user-service";
+import { useTranslation } from "react-i18next";
 
 const PageLogin = () => {
   const [error, setError] = useState(false);
@@ -20,6 +21,7 @@ const PageLogin = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const signIn = useSignIn();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();

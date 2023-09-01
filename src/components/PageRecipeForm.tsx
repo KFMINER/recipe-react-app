@@ -2,13 +2,11 @@ import {
   Box,
   Button,
   Center,
-  Divider,
   Flex,
   FormControl,
   FormLabel,
   HStack,
   Input,
-  Textarea,
   VStack,
 } from "@chakra-ui/react";
 import IngredientInput from "./IngredientInput";
@@ -19,6 +17,7 @@ import { useAuthUser } from "react-auth-kit";
 import recipeService, { Ingredient, Step } from "../services/recipe-service";
 import useRecipe from "../hooks/useRecipe";
 import StepInput from "./StepInput";
+import { useTranslation } from "react-i18next";
 
 const PageRecipeForm = () => {
   const auth = useAuthUser();
@@ -37,6 +36,7 @@ const PageRecipeForm = () => {
   const navigate = useNavigate();
   const nameRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState("");
+  const { t } = useTranslation();
 
   useEffect(() => {
     checkForEmptyIngredients();
@@ -126,16 +126,16 @@ const PageRecipeForm = () => {
             <Center>
               <VStack alignItems="start" gap={6} width="642px">
                 <FormControl isRequired>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>{t("recipeFormLabelName")}</FormLabel>
                   <Input
                     type="text"
-                    placeholder="Tasty Bolognese"
+                    placeholder={t("recipeFormPlaceholderName")}
                     ref={nameRef}
                   />
                 </FormControl>
 
                 <FormControl>
-                  <FormLabel>Ingredients</FormLabel>
+                  <FormLabel>{t("recipeFormLabelIngredients")}</FormLabel>
                   <Flex direction="column" gap={3}>
                     {ingredients.map((ingredient, index) => (
                       <IngredientInput
@@ -170,12 +170,12 @@ const PageRecipeForm = () => {
                       ]);
                     }}
                   >
-                    Add ingredient
+                    {t("recipeFormButtonAddIngredient")}
                   </Button>
                 </FormControl>
 
                 <FormControl>
-                  <FormLabel>Steps</FormLabel>
+                  <FormLabel>{t("recipeFormLabelSteps")}</FormLabel>
                   <Flex direction="column" gap={3}>
                     {steps.map((step, index) => (
                       <StepInput
@@ -201,12 +201,12 @@ const PageRecipeForm = () => {
                       setSteps([...steps, { id: 0, text: "" }]);
                     }}
                   >
-                    Add Step
+                    {t("recipeFormButtonAddStep")}
                   </Button>
                 </FormControl>
 
                 <FormControl isRequired>
-                  <FormLabel>Image</FormLabel>
+                  <FormLabel>{t("recipeFormLabelImage")}</FormLabel>
                   <HStack>
                     <ImageSelectButton
                       onFileSelect={(file: File) => {
@@ -218,9 +218,13 @@ const PageRecipeForm = () => {
 
                 <HStack width="100%" marginTop={10}>
                   <Button type="submit" colorScheme="green">
-                    {recipe ? "Edit Recipe" : "Create Recipe"}
+                    {recipe
+                      ? t("recipeFormButtonEdit")
+                      : t("recipeFormButtonCreate")}
                   </Button>
-                  <Button onClick={() => navigate("/")}>Cancel</Button>
+                  <Button onClick={() => navigate("/")}>
+                    {t("recipeFormButtonCancel")}
+                  </Button>
                 </HStack>
               </VStack>
             </Center>

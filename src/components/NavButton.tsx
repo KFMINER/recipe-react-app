@@ -21,7 +21,7 @@ const NavButton = ({ children, label, onClick }: Props) => {
       color="white"
       padding={1}
       borderRadius={5}
-      width="80px"
+      width="100px"
     >
       <Box width="20px" fontSize="20px">
         {children}

@@ -7,11 +7,13 @@ import { FaClipboardList, FaHome, FaPlus } from "react-icons/fa";
 import NavLogin from "./NavLogin";
 import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const NavBar = () => {
   const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
   const auth = useAuthUser();
+  const { t } = useTranslation();
 
   return (
     <HStack paddingX={5} bg="green.400" height="60px">
@@ -26,25 +28,28 @@ const NavBar = () => {
       <SearchBar />
 
       <HStack marginX={10} gap="15px">
-        <NavButton label="Home" onClick={() => navigate("/recipes")}>
+        <NavButton label={t("navHome")} onClick={() => navigate("/recipes")}>
           <FaHome />
         </NavButton>
 
         <NavButton
-          label="My Recipes"
+          label={t("navMyRecipes")}
           onClick={() => navigate(`/recipes?userId=${auth()?.id}`)}
         >
           <FaClipboardList />
         </NavButton>
 
         <NavButton
-          label="Favorites"
+          label={t("navFavorites")}
           onClick={() => navigate(`/recipes?favorites=true`)}
         >
           <BsFillBox2HeartFill />
         </NavButton>
 
-        <NavButton label="New..." onClick={() => navigate("/recipeform")}>
+        <NavButton
+          label={t("navNewRecipe")}
+          onClick={() => navigate("/recipeform")}
+        >
           <FaPlus />
         </NavButton>
       </HStack>

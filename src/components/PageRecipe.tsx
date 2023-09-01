@@ -30,6 +30,7 @@ import { useEffect, useState } from "react";
 import recipeService from "../services/recipe-service";
 import useDate from "../hooks/useDate";
 import DeleteDialog from "./DeleteDialog";
+import { useTranslation } from "react-i18next";
 
 const PageRecipe = () => {
   const auth = useAuthUser();
@@ -42,6 +43,7 @@ const PageRecipe = () => {
     useFavorites();
   const { getDateFromSecondsFormatted } = useDate();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (recipe) {
@@ -88,7 +90,7 @@ const PageRecipe = () => {
                 </HStack>
                 <HStack>
                   <Button leftIcon={<FaFilePdf />} isDisabled>
-                    Export to PDF
+                    {t("recipePageButtonExportPDF")}
                   </Button>
                   {isFavorite ? (
                     <Button
@@ -96,7 +98,7 @@ const PageRecipe = () => {
                       colorScheme="red"
                       onClick={() => deleteFavorite(recipe!)}
                     >
-                      Remove Recipe
+                      {t("recipePageButtonRemove")}
                     </Button>
                   ) : (
                     <Button
@@ -104,7 +106,7 @@ const PageRecipe = () => {
                       colorScheme="red"
                       onClick={() => createFavorite(recipe!)}
                     >
-                      Save Recipe
+                      {t("recipePageButtonSave")}
                     </Button>
                   )}
                 </HStack>
@@ -112,14 +114,14 @@ const PageRecipe = () => {
 
               <Divider />
               <Heading fontWeight="semibold" size="lg">
-                Ingredients
+                {t("recipePageHeadingIngredients")}
               </Heading>
               <TableContainer w="100%" borderRadius={10}>
                 <Table variant="striped" colorScheme="green">
                   <Thead>
                     <Tr>
-                      <Th>Name</Th>
-                      <Th>Amount</Th>
+                      <Th>{t("recipePageTableIngredientsColName")}</Th>
+                      <Th>{t("recipePageTableIngredientsColAmount")}</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -135,7 +137,7 @@ const PageRecipe = () => {
 
               <Divider />
               <Heading fontWeight="semibold" size="lg">
-                Method
+                {t("recipePageHeadingSteps")}
               </Heading>
               {recipe?.steps.map((step, index) => (
                 <Text key={index} wordBreak={"break-word"}>
@@ -153,14 +155,14 @@ const PageRecipe = () => {
                         navigate(`/recipeform?recipeId=${recipe?.id}`)
                       }
                     >
-                      Edit
+                      {t("recipePageButtonEdit")}
                     </Button>
                     <Button
                       leftIcon={<RiDeleteBin6Fill />}
                       colorScheme="red"
                       onClick={onOpen}
                     >
-                      Delete
+                      {t("recipePageButtonDelete")}
                     </Button>
                     <DeleteDialog
                       onClose={onClose}

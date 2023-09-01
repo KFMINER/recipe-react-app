@@ -10,10 +10,12 @@ import {
 import { FaUserCircle } from "react-icons/fa";
 import useSignOut from "react-auth-kit/dist/hooks/useSignOut";
 import { useAuthUser } from "react-auth-kit";
+import { useTranslation } from "react-i18next";
 
 const UserInfo = () => {
   const signOut = useSignOut();
   const auth = useAuthUser();
+  const { t } = useTranslation();
 
   return (
     <Menu>
@@ -28,7 +30,7 @@ const UserInfo = () => {
         </HStack>
       </MenuButton>
       <MenuList>
-        <MenuItem onClick={signOut}>Logout</MenuItem>
+        <MenuItem onClick={signOut}>{t("userInfoMenuItemSignOut")}</MenuItem>
       </MenuList>
     </Menu>
   );
