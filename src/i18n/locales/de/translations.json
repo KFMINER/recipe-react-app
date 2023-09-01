@@ -35,5 +35,9 @@
   "deleteDialogButtonCancel": "Abbrechen",
   "deleteDialogButtonConfirm": "Löschen",
 
-  "userInfoMenuItemSignOut": "Abmelden"
+  "userInfoMenuItemSignOut": "Abmelden",
+
+  "loginPageErrorUsernameRequired": "Benutzername wird benötigt.",
+  "loginPageErrorPasswordRequired": "Passwort wird benötigt.",
+  "loginPageError-400": "Benutzername oder Passwort falsch."
 }

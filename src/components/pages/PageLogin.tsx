@@ -10,30 +10,44 @@ import {
   Text,
   Link,
 } from "@chakra-ui/react";
-import { FormEvent, useRef, useState } from "react";
+import { useState } from "react";
 import { BiSolidUser } from "react-icons/bi";
 import { FaKey } from "react-icons/fa";
 import useSignIn from "react-auth-kit/dist/hooks/useSignIn";
 import { useNavigate } from "react-router-dom";
 import userService, { User } from "../../services/user-service";
 import { useTranslation } from "react-i18next";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FieldValues, useForm } from "react-hook-form";
 
 const PageLogin = () => {
-  const [error, setError] = useState(false);
-  const usernameRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const signIn = useSignIn();
-  const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    if (!usernameRef.current?.value || !passwordRef.current?.value) {
-      return;
-    }
+  const schema = z.object({
+    username: z
+      .string()
+      .min(1, { message: t("loginPageErrorUsernameRequired") }),
+    password: z
+      .string()
+      .min(1, { message: t("loginPageErrorPasswordRequired") }),
+  });
+
+  type FormData = z.infer<typeof schema>;
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  const [error, setError] = useState("");
+  const signIn = useSignIn();
+  const navigate = useNavigate();
+
+  const onSubmit = (data: FieldValues) => {
     const { request, cancel } = userService.get<User>(
-      usernameRef.current!.value,
-      passwordRef.current!.value
+      data.username,
+      data.password
     );
     request
       .then((res) => {
@@ -49,8 +63,8 @@ const PageLogin = () => {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err);
-        setError(err.message);
+        console.log(err.response.status);
+        setError(t("loginPageError-" + err.response.status));
       });
   };
 
@@ -65,36 +79,43 @@ const PageLogin = () => {
           borderRadius={20}
         >
           <Center>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <VStack gap={2}>
-                <FormControl isInvalid={error}>
+                <FormControl isInvalid={errors.username ? true : false}>
                   <InputGroup>
                     <Input
                       type="text"
                       placeholder="Username"
-                      ref={usernameRef}
+                      {...register("username")}
                     />
                     <InputLeftElement>
                       <BiSolidUser size={20} color="gray" />
                     </InputLeftElement>
                   </InputGroup>
+                  <FormErrorMessage>
+                    {errors.username && errors.username.message}
+                  </FormErrorMessage>
                 </FormControl>
 
-                <FormControl isInvalid={error}>
+                <FormControl isInvalid={errors.password ? true : false}>
                   <InputGroup>
                     <Input
                       type="password"
                       placeholder="Password"
-                      ref={passwordRef}
+                      {...register("password")}
                     />
                     <InputLeftElement>
                       <FaKey size={16} color="gray" />
                     </InputLeftElement>
                   </InputGroup>
                   <FormErrorMessage>
-                    Invalid username or password.
+                    {errors.password && errors.password.message}
                   </FormErrorMessage>
                 </FormControl>
+
+                <Text fontSize={"sm"} color="red.500">
+                  {error}
+                </Text>
 
                 <Input
                   type="submit"
@@ -105,7 +126,9 @@ const PageLogin = () => {
                 />
                 <Text fontSize="sm">
                   Noch kein Account?{" "}
-                  <Link color="green.600">Jetzt registrieren</Link>
+                  <Link color="green.600" onClick={() => navigate("/signup")}>
+                    Jetzt registrieren
+                  </Link>
                 </Text>
               </VStack>
             </form>
