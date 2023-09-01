@@ -36,15 +36,21 @@ const PageRecipe = () => {
   const auth = useAuthUser();
   const navigate = useNavigate();
   const { recipeId } = useParams();
-  const { recipe, isLoading } = useRecipe(recipeId!, {
-    authUserId: auth()?.id,
-  });
+  const { recipe, isLoading, loadRecipeById } = useRecipe();
   const { createFavorite, deleteFavorite, setRecipe, isFavorite } =
     useFavorites();
   const { getDateFromSecondsFormatted } = useDate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { t } = useTranslation();
 
+  // Load Recipe by recipe-id from params
+  useEffect(() => {
+    if (recipeId) {
+      loadRecipeById(recipeId);
+    }
+  }, [recipeId]);
+
+  // Set Recipe for Favorites-hook
   useEffect(() => {
     if (recipe) {
       setRecipe(recipe);

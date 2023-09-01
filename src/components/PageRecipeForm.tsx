@@ -13,7 +13,7 @@ import IngredientInput from "./IngredientInput";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import ImageSelectButton from "./ImageSelectButton";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useAuthUser } from "react-auth-kit";
+import { useAuthUser, useIsAuthenticated } from "react-auth-kit";
 import recipeService, { Ingredient, Step } from "../services/recipe-service";
 import useRecipe from "../hooks/useRecipe";
 import StepInput from "./StepInput";
@@ -21,38 +21,44 @@ import { useTranslation } from "react-i18next";
 
 const PageRecipeForm = () => {
   const auth = useAuthUser();
+  const isAuthenticated = useIsAuthenticated();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { recipe, isLoading, setRecipe } = useRecipe(
-    searchParams.get("recipeId"),
-    {
-      authUserId: auth()?.id,
-    }
-  );
+  const { recipe, isLoading, loadRecipeById, unsetRecipe } = useRecipe();
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [steps, setSteps] = useState<Step[]>([]);
   const [canAddIngredient, setCanAddIngredient] = useState(false);
   const [canAddStep, setCanAddStep] = useState(false);
   const [image, setImage] = useState<File>();
-  const navigate = useNavigate();
   const nameRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState("");
   const { t } = useTranslation();
+
+  // Authentication required for this page
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      navigate("/login");
+    }
+  }, [isAuthenticated()]);
 
   useEffect(() => {
     checkForEmptyIngredients();
     checkForEmptySteps();
   });
 
-  // Set recipe null if navigating to new-recipe-form from edit-recipe-form
+  // Load Recipe by recipe-id from params or unset existing recipe if no id was set
+  // (Happens if user switches from edit-form to new-form)
   useEffect(() => {
-    if (!searchParams.get("recipeId")) {
-      setRecipe(null);
+    if (searchParams.get("recipeId")) {
+      loadRecipeById(searchParams.get("recipeId")!);
+    } else {
+      unsetRecipe();
     }
   }, [searchParams.get("recipeId")]);
 
   // Fill in (or clear) input values if recipe changes
   useEffect(() => {
-    if (recipe?.user_id === auth()?.id) {
+    if (recipe && recipe?.user_id === auth()?.id) {
       nameRef.current!.value = recipe!.name;
       setIngredients(recipe!.ingredients);
       setSteps(recipe!.steps);

@@ -32,29 +32,35 @@ const NavBar = () => {
           <FaHome />
         </NavButton>
 
-        <NavButton
-          label={t("navMyRecipes")}
-          onClick={() => navigate(`/recipes?userId=${auth()?.id}`)}
-        >
-          <FaClipboardList />
-        </NavButton>
+        {isAuthenticated() && (
+          <NavButton
+            label={t("navMyRecipes")}
+            onClick={() => navigate(`/recipes?userId=${auth()?.id}`)}
+          >
+            <FaClipboardList />
+          </NavButton>
+        )}
 
-        <NavButton
-          label={t("navFavorites")}
-          onClick={() => navigate(`/recipes?favorites=true`)}
-        >
-          <BsFillBox2HeartFill />
-        </NavButton>
+        {isAuthenticated() && (
+          <NavButton
+            label={t("navFavorites")}
+            onClick={() => navigate(`/recipes?favorites=true`)}
+          >
+            <BsFillBox2HeartFill />
+          </NavButton>
+        )}
 
-        <NavButton
-          label={t("navNewRecipe")}
-          onClick={() => navigate("/recipeform")}
-        >
-          <FaPlus />
-        </NavButton>
+        {isAuthenticated() && (
+          <NavButton
+            label={t("navNewRecipe")}
+            onClick={() => navigate("/recipeform")}
+          >
+            <FaPlus />
+          </NavButton>
+        )}
       </HStack>
 
-      <Flex width="400px" justifyContent="flex-end">
+      <Flex justifyContent="flex-end">
         {isAuthenticated() ? (
           <UserInfo />
         ) : (
