@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuthUser } from "react-auth-kit";
+import { useAuthUser, useIsAuthenticated } from "react-auth-kit";
 import {
   Box,
   Center,
@@ -34,6 +34,7 @@ import { useTranslation } from "react-i18next";
 
 const PageRecipe = () => {
   const auth = useAuthUser();
+  const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
   const { recipeId } = useParams();
   const { recipe, isLoading, loadRecipeById } = useRecipe();
@@ -103,6 +104,7 @@ const PageRecipe = () => {
                       leftIcon={<BsFillHeartbreakFill />}
                       colorScheme="red"
                       onClick={() => deleteFavorite(recipe!)}
+                      isDisabled={!isAuthenticated()}
                     >
                       {t("recipePageButtonRemove")}
                     </Button>
@@ -111,6 +113,7 @@ const PageRecipe = () => {
                       leftIcon={<BsHeartFill />}
                       colorScheme="red"
                       onClick={() => createFavorite(recipe!)}
+                      isDisabled={!isAuthenticated()}
                     >
                       {t("recipePageButtonSave")}
                     </Button>
