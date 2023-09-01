@@ -24,12 +24,12 @@ import { FaFilePdf } from "react-icons/fa6";
 import { FaUserCircle } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import { RiDeleteBin6Fill } from "react-icons/ri";
-import useRecipe from "../hooks/useRecipe";
-import useFavorites from "../hooks/useFavorites";
+import useRecipe from "../../hooks/useRecipe";
+import useFavorites from "../../hooks/useFavorites";
 import { useEffect, useState } from "react";
-import recipeService from "../services/recipe-service";
-import useDate from "../hooks/useDate";
-import DeleteDialog from "./DeleteDialog";
+import recipeService from "../../services/recipe-service";
+import useDate from "../../hooks/useDate";
+import DeleteDialog from "../DeleteDialog";
 import { useTranslation } from "react-i18next";
 
 const PageRecipe = () => {

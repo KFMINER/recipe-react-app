@@ -11,11 +11,13 @@ import { FaUserCircle } from "react-icons/fa";
 import useSignOut from "react-auth-kit/dist/hooks/useSignOut";
 import { useAuthUser } from "react-auth-kit";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const UserInfo = () => {
   const signOut = useSignOut();
   const auth = useAuthUser();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <Menu>
@@ -30,7 +32,14 @@ const UserInfo = () => {
         </HStack>
       </MenuButton>
       <MenuList>
-        <MenuItem onClick={signOut}>{t("userInfoMenuItemSignOut")}</MenuItem>
+        <MenuItem
+          onClick={() => {
+            signOut();
+            navigate("/");
+          }}
+        >
+          {t("userInfoMenuItemSignOut")}
+        </MenuItem>
       </MenuList>
     </Menu>
   );

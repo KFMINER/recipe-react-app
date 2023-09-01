@@ -9,7 +9,7 @@ import { FormEvent, useRef, useState } from "react";
 import { BiSolidUser } from "react-icons/bi";
 import { FaKey } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import userService from "../services/user-service";
+import userService from "../../services/user-service";
 
 const PageSignup = () => {
   const [error, setError] = useState(false);

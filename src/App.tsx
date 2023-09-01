@@ -1,10 +1,10 @@
 import NavBar from "./components/NavBar";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import PageLogin from "./components/PageLogin";
-import PageSignup from "./components/PageSignup";
-import PageRecipeForm from "./components/PageRecipeForm";
-import PageRecipes from "./components/PageRecipes";
-import PageRecipe from "./components/PageRecipe";
+import PageLogin from "./components/pages/PageLogin";
+import PageSignup from "./components/pages/PageSignup";
+import PageRecipeForm from "./components/pages/PageRecipeForm";
+import PageRecipes from "./components/pages/PageRecipes";
+import PageRecipe from "./components/pages/PageRecipe";
 
 function App() {
   return (

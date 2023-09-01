@@ -12,7 +12,7 @@ import { BiSolidUser } from "react-icons/bi";
 import { FaKey } from "react-icons/fa";
 import useSignIn from "react-auth-kit/dist/hooks/useSignIn";
 import { useNavigate } from "react-router-dom";
-import userService, { User } from "../services/user-service";
+import userService, { User } from "../../services/user-service";
 import { useTranslation } from "react-i18next";
 
 const PageLogin = () => {

@@ -9,14 +9,14 @@ import {
   Input,
   VStack,
 } from "@chakra-ui/react";
-import IngredientInput from "./IngredientInput";
+import IngredientInput from "../IngredientInput";
 import { FormEvent, useEffect, useRef, useState } from "react";
-import ImageSelectButton from "./ImageSelectButton";
+import ImageSelectButton from "../ImageSelectButton";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuthUser, useIsAuthenticated } from "react-auth-kit";
-import recipeService, { Ingredient, Step } from "../services/recipe-service";
-import useRecipe from "../hooks/useRecipe";
-import StepInput from "./StepInput";
+import recipeService, { Ingredient, Step } from "../../services/recipe-service";
+import useRecipe from "../../hooks/useRecipe";
+import StepInput from "../StepInput";
 import { useTranslation } from "react-i18next";
 
 const PageRecipeForm = () => {

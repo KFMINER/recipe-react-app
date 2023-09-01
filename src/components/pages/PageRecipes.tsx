@@ -1,8 +1,8 @@
 import { Flex, Center, Box } from "@chakra-ui/react";
 import { useAuthUser } from "react-auth-kit";
-import RecipeCard from "./RecipeCard";
+import RecipeCard from "../RecipeCard";
 import { useSearchParams } from "react-router-dom";
-import useRecipes from "../hooks/useRecipes";
+import useRecipes from "../../hooks/useRecipes";
 import { useEffect, useState } from "react";
 
 export interface Params {
