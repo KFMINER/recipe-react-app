@@ -14,6 +14,7 @@ export interface Step {
 export interface Recipe {
   id: number;
   user_id: number;
+  username: string;
   name: string;
   ingredients: Ingredient[];
   steps: Step[];

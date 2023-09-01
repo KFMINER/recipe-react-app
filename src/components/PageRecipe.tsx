@@ -88,7 +88,7 @@ const PageRecipe = () => {
                   <Box width="40px" color="green.400">
                     <FaUserCircle fontSize="40px" />
                   </Box>
-                  <Text fontSize="18px">{auth()?.username}</Text>
+                  <Text fontSize="18px">{recipe?.username}</Text>
                   <Text>-</Text>
                   <Text fontSize="14px" color="gray.500">
                     {getDateFromSecondsFormatted(recipe?.updated)}
