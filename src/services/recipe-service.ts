@@ -1,7 +1,7 @@
 import create from "./http-service";
 
 export interface Ingredient {
-  id: number;
+  id?: number;
   name: string;
   amount: string;
 }

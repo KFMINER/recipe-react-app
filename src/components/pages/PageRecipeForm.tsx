@@ -41,6 +41,7 @@ const PageRecipeForm = () => {
     }
   }, [isAuthenticated()]);
 
+  // Check for empty ingredients and steps, so that no new input fields can be added for these while there are still empty ones
   useEffect(() => {
     checkForEmptyIngredients();
     checkForEmptySteps();
@@ -69,6 +70,11 @@ const PageRecipeForm = () => {
       setIngredients([]);
       setSteps([]);
       setImage(undefined);
+
+      // Initialize with an empty ingredient and an empty step input field
+      // (In development: Runs twice because of ScrictMode. This is not happening in production so this can be ignored)
+      addEmptyIngredient();
+      addEmptyStep();
     }
   }, [recipe]);
 
@@ -90,6 +96,16 @@ const PageRecipeForm = () => {
         setCanAddStep(false);
       }
     });
+  };
+
+  // Add empty ingredient to list
+  const addEmptyIngredient = () => {
+    setIngredients([...ingredients, { name: "", amount: "" }]);
+  };
+
+  // Add empty step to list
+  const addEmptyStep = () => {
+    setSteps([...steps, { id: 0, text: "" }]);
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -169,12 +185,7 @@ const PageRecipeForm = () => {
                   <Button
                     marginTop={3}
                     isDisabled={!canAddIngredient}
-                    onClick={() => {
-                      setIngredients([
-                        ...ingredients,
-                        { id: 0, name: "", amount: "" },
-                      ]);
-                    }}
+                    onClick={addEmptyIngredient}
                   >
                     {t("recipeFormButtonAddIngredient")}
                   </Button>
@@ -203,9 +214,7 @@ const PageRecipeForm = () => {
                   <Button
                     marginTop={3}
                     isDisabled={!canAddStep}
-                    onClick={() => {
-                      setSteps([...steps, { id: 0, text: "" }]);
-                    }}
+                    onClick={addEmptyStep}
                   >
                     {t("recipeFormButtonAddStep")}
                   </Button>
