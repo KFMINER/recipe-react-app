@@ -16,7 +16,7 @@ import { FaKey } from "react-icons/fa";
 import useSignIn from "react-auth-kit/dist/hooks/useSignIn";
 import { useNavigate } from "react-router-dom";
 import userService, { User } from "../../services/user-service";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";
@@ -85,7 +85,7 @@ const PageLogin = () => {
                   <InputGroup>
                     <Input
                       type="text"
-                      placeholder="Username"
+                      placeholder={t("loginPageInputPlaceholderUsername")}
                       {...register("username")}
                     />
                     <InputLeftElement>
@@ -101,7 +101,7 @@ const PageLogin = () => {
                   <InputGroup>
                     <Input
                       type="password"
-                      placeholder="Password"
+                      placeholder={t("loginPageInputPlaceholderPassword")}
                       {...register("password")}
                     />
                     <InputLeftElement>
@@ -119,16 +119,18 @@ const PageLogin = () => {
 
                 <Input
                   type="submit"
-                  value="Login"
+                  value={t("loginPageButtonLogin")}
                   bg="green.400"
                   color="white"
                   marginTop={3}
                 />
                 <Text fontSize="sm">
-                  Noch kein Account?{" "}
-                  <Link color="green.600" onClick={() => navigate("/signup")}>
-                    Jetzt registrieren
-                  </Link>
+                  <Trans i18nKey="loginPageLinkToSignupPage">
+                    <Link
+                      color="green.600"
+                      onClick={() => navigate("/signup")}
+                    ></Link>
+                  </Trans>
                 </Text>
               </VStack>
             </form>

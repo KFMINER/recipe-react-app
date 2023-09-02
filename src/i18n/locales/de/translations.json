@@ -37,7 +37,27 @@
 
   "userInfoMenuItemSignOut": "Abmelden",
 
+  "loginPageInputPlaceholderUsername": "Benutzername",
+  "loginPageInputPlaceholderPassword": "Passwort",
+  "loginPageButtonLogin": "Anmelden",
+  "loginPageLinkToSignupPage": "Noch kein Account? <0>Jetzt registrieren</0>",
   "loginPageErrorUsernameRequired": "Benutzername wird benötigt.",
   "loginPageErrorPasswordRequired": "Passwort wird benötigt.",
-  "loginPageError-400": "Benutzername oder Passwort falsch."
+  "loginPageError-400": "Benutzername oder Passwort falsch.",
+
+  "signupPageInputPlaceholderUsername": "Benutzername",
+  "signupPageInputPlaceholderPassword": "Passwort",
+  "signupPageInputPlaceholderConfirmPassword": "Passwort wiederholen",
+  "signupPageButtonSignup": "Registrieren",
+  "signupPageLinkToLoginPage": "Du hast bereits ein Account? <0>Anmelden</0>",
+  "signupPageErrorUsernameRequired": "Benutzername wird benötigt.",
+  "signupPageErrorPasswordRequired": "Passwort wird benötigt.",
+  "signupPageErrorPasswordLengthMin": "Das Passwort sollte min. 8 Zeichen enthalten.",
+  "signupPageErrorPasswordLengthMax": "Das Passwort darf nicht mehr als 255 Zeichen enthalten.",
+  "signupPageErrorPasswordNoUpperCase": "Das Passwort sollte min. 1 Großbuchstaben enthalten.",
+  "signupPageErrorPasswordNoLowerCase": "Das Passwort sollte min. 1 Kleinbuchstaben enthalten.",
+  "signupPageErrorConfirmPasswordRequired": "Bitte wiederhole dein Passwort.",
+  "signupPageErrorConfirmPasswordNotMatching": "Die Passwörter stimmen nicht überein.",
+  "signupPageError-400": "Der Benutzername ist bereits vergeben."
+
 }
