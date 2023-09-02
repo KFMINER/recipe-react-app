@@ -1,11 +1,12 @@
 import { Button, HStack } from "@chakra-ui/react";
+import { t } from "i18next";
 import { BiSolidUser } from "react-icons/bi";
 import { MdLogin } from "react-icons/md";
 import { Link as ReactRouterLink } from "react-router-dom";
 
 interface Props {
-  onLogin: () => void;
-  onSignup: () => void;
+  onLogin?: () => void;
+  onSignup?: () => void;
 }
 
 const NavLogin = ({ onLogin, onSignup }: Props) => {
@@ -21,7 +22,7 @@ const NavLogin = ({ onLogin, onSignup }: Props) => {
           bg="white"
           onClick={onLogin}
         >
-          Login
+          {t("navLoginButtonLogin")}
         </Button>
       </ReactRouterLink>
 
@@ -35,7 +36,7 @@ const NavLogin = ({ onLogin, onSignup }: Props) => {
           bg="white"
           onClick={onSignup}
         >
-          Sign Up
+          {t("navLoginButtonSignup")}
         </Button>
       </ReactRouterLink>
     </HStack>

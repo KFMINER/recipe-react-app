@@ -1,8 +1,11 @@
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
-import React from "react";
 import { BsSearch } from "react-icons/bs";
 
-const SearchBar = () => {
+interface Props {
+  isDisabled?: boolean;
+}
+
+const SearchBar = ({ isDisabled }: Props) => {
   return (
     <InputGroup size="md" bg="white" borderRadius={8}>
       <Input
@@ -11,6 +14,7 @@ const SearchBar = () => {
         borderRadius={8}
         bg="white"
         focusBorderColor="green.500"
+        isDisabled={isDisabled}
       />
       <InputRightElement children={<BsSearch color="gray" />} />
     </InputGroup>

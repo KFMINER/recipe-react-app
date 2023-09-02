@@ -25,7 +25,7 @@ const NavBar = () => {
         Recipe<b>Box</b>
       </Text>
 
-      <SearchBar />
+      <SearchBar isDisabled />
 
       <HStack marginX={10} gap="15px">
         <NavButton label={t("navHome")} onClick={() => navigate("/recipes")}>
@@ -61,14 +61,7 @@ const NavBar = () => {
       </HStack>
 
       <Flex justifyContent="flex-end">
-        {isAuthenticated() ? (
-          <UserInfo />
-        ) : (
-          <NavLogin
-            onLogin={() => console.log("login")}
-            onSignup={() => console.log("signup")}
-          />
-        )}
+        {isAuthenticated() ? <UserInfo /> : <NavLogin />}
       </Flex>
     </HStack>
   );

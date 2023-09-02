@@ -63,7 +63,6 @@ const PageLogin = () => {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err.response.status);
         setError(t("loginPageError-" + err.response.status));
       });
   };

@@ -4,6 +4,9 @@
   "navFavorites": "Favoriten",
   "navNewRecipe": "Neu...",
 
+  "navLoginButtonLogin": "Anmelden",
+  "navLoginButtonSignup": "Registrieren",
+
   "recipeFormLabelName": "Name",
   "recipeFormLabelIngredients": "Zutaten",
   "recipeFormLabelSteps": "Zubereitungsschritte",
