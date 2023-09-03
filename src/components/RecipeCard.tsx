@@ -58,31 +58,28 @@ const RecipeCard = ({ recipe, onFavoriteChange }: Props) => {
           height="250px"
           fit="cover"
         />
-        <VStack marginTop={3}>
-          <HStack w="100%" justifyContent="space-between">
-            <Heading
-              size="md"
-              fontWeight="semibold"
-              w="100%"
-              color={isHovered ? "green.400" : "gray.700"}
-              transitionProperty="common"
-              transitionDuration="fast"
-            >
-              {recipe.name}
-            </Heading>
-            {isAuthenticated() && (
-              <LikeIconButton
-                onMouseEnter={() => setHovered(false)}
-                onMouseLeave={() => setHovered(true)}
-                onClick={() => {
-                  //console.log(isFavorite);
-                  isFavorite ? deleteFavorite(recipe) : createFavorite(recipe);
-                }}
-                active={isFavorite}
-              />
-            )}
-          </HStack>
-        </VStack>
+        <HStack w="100%" justifyContent="space-between" marginTop={3}>
+          <Heading
+            size="md"
+            fontWeight="semibold"
+            w="100%"
+            color={isHovered ? "green.400" : "gray.700"}
+            transitionProperty="common"
+            transitionDuration="fast"
+          >
+            {recipe.name}
+          </Heading>
+          {isAuthenticated() && (
+            <LikeIconButton
+              onMouseEnter={() => setHovered(false)}
+              onMouseLeave={() => setHovered(true)}
+              onClick={() => {
+                isFavorite ? deleteFavorite(recipe) : createFavorite(recipe);
+              }}
+              active={isFavorite}
+            />
+          )}
+        </HStack>
       </CardBody>
     </Card>
   );

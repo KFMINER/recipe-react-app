@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import recipeService, { Recipe } from "../services/recipe-service";
 import { CanceledError } from "../services/api-client";
-import { Params } from "../components/PageRecipes";
+import { Params } from "../components/pages/PageRecipes"
 
 const useRecipes = (params?: Params) => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);

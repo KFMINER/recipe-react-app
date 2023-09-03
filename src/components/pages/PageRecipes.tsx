@@ -3,7 +3,7 @@ import { useAuthUser } from "react-auth-kit";
 import RecipeCard from "../RecipeCard";
 import { useSearchParams } from "react-router-dom";
 import useRecipes from "../../hooks/useRecipes";
-import { useEffect, useState } from "react";
+import RecipeCardSkeleton from "../RecipeCardSkeleton";
 
 export interface Params {
   userId: string | null;
@@ -21,12 +21,13 @@ const PageRecipes = () => {
     authUserId: auth()?.id,
   };
 
-  const { recipes, setRecipes } = useRecipes(params);
+  const { recipes, setRecipes, isLoading } = useRecipes(params);
 
   return (
     <Box bg="gray.100" minHeight="calc(100vh - 60px)">
       <Center>
         <Flex gap={10} width="80%" flexWrap="wrap" marginTop={10}>
+          {isLoading && <RecipeCardSkeleton />}
           {recipes.map((recipe, index) => (
             <RecipeCard
               key={index}
