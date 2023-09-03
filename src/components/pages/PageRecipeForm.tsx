@@ -70,11 +70,6 @@ const PageRecipeForm = () => {
       setIngredients([]);
       setSteps([]);
       setImage(undefined);
-
-      // Initialize with an empty ingredient and an empty step input field
-      // (In development: Runs twice because of ScrictMode. This is not happening in production so this can be ignored)
-      addEmptyIngredient();
-      addEmptyStep();
     }
   }, [recipe]);
 
