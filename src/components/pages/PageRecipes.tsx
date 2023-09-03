@@ -28,18 +28,19 @@ const PageRecipes = () => {
       <Center>
         <Flex gap={10} width="80%" flexWrap="wrap" marginTop={10}>
           {isLoading && <RecipeCardSkeleton />}
-          {recipes.map((recipe, index) => (
-            <RecipeCard
-              key={index}
-              recipe={recipe}
-              onFavoriteChange={(isFavorite) => {
-                if (!isFavorite && params.favorites) {
-                  const recipesFiltered = recipes.filter((r) => r.isFavorite);
-                  setRecipes(recipesFiltered);
-                }
-              }}
-            />
-          ))}
+          {!isLoading &&
+            recipes.map((recipe, index) => (
+              <RecipeCard
+                key={index}
+                recipe={recipe}
+                onFavoriteChange={(isFavorite) => {
+                  if (!isFavorite && params.favorites) {
+                    const recipesFiltered = recipes.filter((r) => r.isFavorite);
+                    setRecipes(recipesFiltered);
+                  }
+                }}
+              />
+            ))}
         </Flex>
       </Center>
     </Box>
