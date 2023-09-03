@@ -55,6 +55,7 @@ const ImageSelectButton = ({ onFileSelect }: Props) => {
       <input
         type="file"
         id="inputFile"
+        accept=".png,.PNG,.jpg,.JPG,.JPEG"
         onChange={(e) => {
           setFileName(e.target.files![0].name);
           onFileSelect(e.target.files![0]);
