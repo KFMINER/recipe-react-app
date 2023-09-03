@@ -34,8 +34,6 @@ const RecipeCard = ({ recipe, onFavoriteChange }: Props) => {
     onFavoriteChange(isFavorite);
   }, [isFavorite]);
 
-  const handleLikeButtonClick = () => {};
-
   return (
     <Card
       borderRadius={10}
@@ -51,7 +49,10 @@ const RecipeCard = ({ recipe, onFavoriteChange }: Props) => {
     >
       <CardBody>
         <Image
-          src={"http://localhost:3000/images/" + recipe.image}
+          src={
+            "https://recipe-express-app-production.up.railway.app/images/" +
+            recipe.image
+          }
           borderRadius="lg"
           width="100%"
           height="250px"

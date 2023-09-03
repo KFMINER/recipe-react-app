@@ -77,7 +77,10 @@ const PageRecipe = () => {
             <VStack alignItems="start" gap={6} width="642px">
               <Heading fontWeight="semibold">{recipe?.name}</Heading>
               <Image
-                src={"http://localhost:3000/images/" + recipe?.image}
+                src={
+                  "https://recipe-express-app-production.up.railway.app/images/" +
+                  recipe?.image
+                }
                 borderRadius={10}
                 width="642px"
                 height="428px"

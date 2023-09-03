@@ -64,7 +64,6 @@ const PageSignup = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data: FieldValues) => {
-    console.log(data);
     const user = {
       username: data.username,
       password: data.password,

@@ -1,7 +1,7 @@
 import axios, { CanceledError } from "axios";
 
 export default axios.create({
-  baseURL: 'http://localhost:3000/api'
+  baseURL: 'https://recipe-express-app-production.up.railway.app/api'
 });
 
 export { CanceledError };
