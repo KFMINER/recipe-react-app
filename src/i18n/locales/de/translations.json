@@ -7,6 +7,8 @@
   "navLoginButtonLogin": "Anmelden",
   "navLoginButtonSignup": "Registrieren",
 
+  "searchBarPlaceholderInput": "Suchen...",
+
   "recipeFormLabelName": "Name",
   "recipeFormLabelIngredients": "Zutaten",
   "recipeFormLabelSteps": "Zubereitungsschritte",

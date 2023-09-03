@@ -26,7 +26,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import useRecipe from "../../hooks/useRecipe";
 import useFavorites from "../../hooks/useFavorites";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import recipeService from "../../services/recipe-service";
 import useDate from "../../hooks/useDate";
 import DeleteDialog from "../DeleteDialog";

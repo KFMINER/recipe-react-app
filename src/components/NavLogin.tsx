@@ -1,5 +1,5 @@
 import { Button, HStack } from "@chakra-ui/react";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { BiSolidUser } from "react-icons/bi";
 import { MdLogin } from "react-icons/md";
 import { Link as ReactRouterLink } from "react-router-dom";
@@ -10,6 +10,8 @@ interface Props {
 }
 
 const NavLogin = ({ onLogin, onSignup }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <HStack>
       <ReactRouterLink to="/login">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import recipeService, { Recipe } from "../services/recipe-service";
 import { CanceledError } from "../services/api-client";
 

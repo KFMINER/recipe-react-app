@@ -1,11 +1,4 @@
-import {
-  Card,
-  CardBody,
-  HStack,
-  Heading,
-  Image,
-  VStack,
-} from "@chakra-ui/react";
+import { Card, CardBody, HStack, Heading, Image } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import LikeIconButton from "./LikeIconButton";
 import { useIsAuthenticated } from "react-auth-kit";
