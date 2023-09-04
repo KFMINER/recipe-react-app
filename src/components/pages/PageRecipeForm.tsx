@@ -122,7 +122,9 @@ const PageRecipeForm = () => {
     if (recipe !== undefined && recipe !== null) {
       formData.append("recipeId", recipe.id.toString());
       const { request, cancel } = recipeService.update(recipe.id, formData);
-      request.then(() => navigate("/")).catch((err) => setError(err.message));
+      request
+        .then(() => navigate(`/recipes/${recipe.id}`))
+        .catch((err) => setError(err.message));
     } else {
       const { request, cancel } = recipeService.create(formData);
       request

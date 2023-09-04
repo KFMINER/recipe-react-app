@@ -45,7 +45,6 @@ const PageRecipe = () => {
   // Load Recipe by recipe-id from params
   useEffect(() => {
     if (recipeId) {
-      console.log("load");
       loadRecipeById(recipeId, { authUserId: auth()?.id });
     }
   }, [recipeId]);

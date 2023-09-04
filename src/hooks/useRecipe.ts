@@ -14,7 +14,6 @@ const useRecipe = () => {
       const { request, cancel } = recipeService.get<Recipe>(recipeId, undefined, params);
       request
         .then((res) => {
-          console.log(res.data);
           setRecipe(res.data);
           setLoading(false);
         })
