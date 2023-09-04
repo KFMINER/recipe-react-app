@@ -67,7 +67,9 @@ const PageRecipe = () => {
         >
           <Center>
             <VStack alignItems="start" gap={6} width="642px">
-              <Heading fontWeight="semibold">{recipe?.name}</Heading>
+              <Heading fontWeight="semibold" width="100%">
+                {recipe?.name}
+              </Heading>
               <Image
                 src={
                   "https://recipe-express-app-production.up.railway.app/images/" +

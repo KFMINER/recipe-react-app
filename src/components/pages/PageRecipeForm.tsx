@@ -19,6 +19,7 @@ import recipeService, { Ingredient, Step } from "../../services/recipe-service";
 import useRecipe from "../../hooks/useRecipe";
 import StepInput from "../StepInput";
 import { useTranslation } from "react-i18next";
+import ControlledInputCharCount from "../ControlledInputCharCount";
 
 const PageRecipeForm = () => {
   const auth = useAuthUser();
@@ -145,10 +146,10 @@ const PageRecipeForm = () => {
               <VStack alignItems="start" gap={6} width="642px">
                 <FormControl isRequired>
                   <FormLabel>{t("recipeFormLabelName")}</FormLabel>
-                  <Input
-                    type="text"
+                  <ControlledInputCharCount
                     placeholder={t("recipeFormPlaceholderName")}
-                    ref={nameRef}
+                    reference={nameRef}
+                    maxLength={30}
                   />
                 </FormControl>
 

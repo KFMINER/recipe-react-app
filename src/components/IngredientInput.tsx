@@ -6,9 +6,9 @@ import { useTranslation } from "react-i18next";
 interface Props {
   name?: string;
   amount?: string;
-  onChangeName?: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeAmount?: (event: ChangeEvent<HTMLInputElement>) => void;
-  onDelete?: () => void;
+  onChangeName: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeAmount: (event: ChangeEvent<HTMLInputElement>) => void;
+  onDelete: () => void;
 }
 
 const IngredientInput = ({
@@ -28,7 +28,7 @@ const IngredientInput = ({
             type="text"
             placeholder={t("ingredientInputPlaceholderName")}
             value={name}
-            onChange={onChangeName ? (e) => onChangeName(e) : () => {}}
+            onChange={onChangeName}
           />
         </GridItem>
 
@@ -37,7 +37,7 @@ const IngredientInput = ({
             type="text"
             placeholder={t("ingredientInputPlaceholderAmount")}
             value={amount}
-            onChange={onChangeAmount ? (e) => onChangeAmount(e) : () => {}}
+            onChange={onChangeAmount}
           />
         </GridItem>
       </Grid>
