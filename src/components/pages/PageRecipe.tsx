@@ -25,7 +25,6 @@ import { FaUserCircle } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import useRecipe from "../../hooks/useRecipe";
-import useFavorites from "../../hooks/useFavorites";
 import { useEffect } from "react";
 import recipeService from "../../services/recipe-service";
 import useDate from "../../hooks/useDate";
@@ -37,9 +36,8 @@ const PageRecipe = () => {
   const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
   const { recipeId } = useParams();
-  const { recipe, isLoading, loadRecipeById } = useRecipe();
-  const { createFavorite, deleteFavorite, setRecipe, isFavorite } =
-    useFavorites();
+  const { recipe, loadRecipeById, addToFavorites, removeFromFavorites } =
+    useRecipe();
   const { getDateFromSecondsFormatted } = useDate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { t } = useTranslation();
@@ -47,16 +45,10 @@ const PageRecipe = () => {
   // Load Recipe by recipe-id from params
   useEffect(() => {
     if (recipeId) {
-      loadRecipeById(recipeId);
+      console.log("load");
+      loadRecipeById(recipeId, { authUserId: auth()?.id });
     }
   }, [recipeId]);
-
-  // Set Recipe for Favorites-hook
-  useEffect(() => {
-    if (recipe) {
-      setRecipe(recipe);
-    }
-  }, [recipe]);
 
   const handleDelete = () => {
     const { request, cancel } = recipeService.delete(recipe!.id);
@@ -102,11 +94,11 @@ const PageRecipe = () => {
                   <Button leftIcon={<FaFilePdf />} isDisabled>
                     {t("recipePageButtonExportPDF")}
                   </Button>
-                  {isFavorite ? (
+                  {recipe?.isFavorite ? (
                     <Button
                       leftIcon={<BsFillHeartbreakFill />}
                       colorScheme="red"
-                      onClick={() => deleteFavorite(recipe!)}
+                      onClick={() => removeFromFavorites()}
                       isDisabled={!isAuthenticated()}
                     >
                       {t("recipePageButtonRemove")}
@@ -115,7 +107,7 @@ const PageRecipe = () => {
                     <Button
                       leftIcon={<BsHeartFill />}
                       colorScheme="red"
-                      onClick={() => createFavorite(recipe!)}
+                      onClick={() => addToFavorites()}
                       isDisabled={!isAuthenticated()}
                     >
                       {t("recipePageButtonSave")}

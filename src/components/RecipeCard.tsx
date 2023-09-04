@@ -8,7 +8,7 @@ import useFavorites from "../hooks/useFavorites";
 
 interface Props {
   recipe: Recipe;
-  onFavoriteChange: (isFavorite: boolean) => void;
+  onFavoriteChange: (isFavorite?: boolean) => void;
 }
 
 const RecipeCard = ({ recipe, onFavoriteChange }: Props) => {
@@ -16,16 +16,11 @@ const RecipeCard = ({ recipe, onFavoriteChange }: Props) => {
 
   const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
-  const { createFavorite, deleteFavorite, isFavorite, setRecipe } =
-    useFavorites();
+  const { createFavorite, deleteFavorite } = useFavorites();
 
   useEffect(() => {
-    setRecipe(recipe);
-  }, [recipe.id]);
-
-  useEffect(() => {
-    onFavoriteChange(isFavorite);
-  }, [isFavorite]);
+    onFavoriteChange(recipe.isFavorite);
+  }, [recipe.isFavorite]);
 
   return (
     <Card
@@ -67,9 +62,11 @@ const RecipeCard = ({ recipe, onFavoriteChange }: Props) => {
               onMouseEnter={() => setHovered(false)}
               onMouseLeave={() => setHovered(true)}
               onClick={() => {
-                isFavorite ? deleteFavorite(recipe) : createFavorite(recipe);
+                recipe.isFavorite
+                  ? deleteFavorite(recipe)
+                  : createFavorite(recipe);
               }}
-              active={isFavorite}
+              active={recipe.isFavorite!}
             />
           )}
         </HStack>
