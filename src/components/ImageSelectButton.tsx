@@ -5,9 +5,10 @@ import { useTranslation } from "react-i18next";
 
 interface Props {
   onFileSelect: (file: File) => void;
+  onError: (message: string) => void;
 }
 
-const ImageSelectButton = ({ onFileSelect }: Props) => {
+const ImageSelectButton = ({ onFileSelect, onError }: Props) => {
   const [fileName, setFileName] = useState<string>();
   const [isHovered, setHovered] = useState(false);
   const { t } = useTranslation();
@@ -61,6 +62,14 @@ const ImageSelectButton = ({ onFileSelect }: Props) => {
           if (allowedTypes.includes(e.target.files![0].type)) {
             setFileName(e.target.files![0].name);
             onFileSelect(e.target.files![0]);
+          } else {
+            onError(
+              t("recipeFormErrorInvalidFileType", {
+                type: e.target.files![0].type.substring(
+                  e.target.files![0].type.indexOf("/") + 1
+                ),
+              })
+            );
           }
         }}
       />

@@ -19,6 +19,7 @@
   "recipeFormButtonCreate": "Rezept erstellen",
   "recipeFormButtonEdit": "Rezept bearbeiten",
   "recipeFormButtonCancel": "Abbrechen",
+  "recipeFormErrorInvalidFileType": "Der Dateityp '{{type}}' wird nicht unterstützt.",
 
   "imageSelectButton": "Wähle Bild...",
 

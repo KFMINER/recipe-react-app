@@ -8,6 +8,7 @@ import {
   HStack,
   Input,
   VStack,
+  Text,
 } from "@chakra-ui/react";
 import IngredientInput from "../IngredientInput";
 import { FormEvent, useEffect, useRef, useState } from "react";
@@ -217,14 +218,18 @@ const PageRecipeForm = () => {
 
                 <FormControl isRequired>
                   <FormLabel>{t("recipeFormLabelImage")}</FormLabel>
-                  <HStack>
-                    <ImageSelectButton
-                      onFileSelect={(file: File) => {
-                        setImage(file);
-                      }}
-                    />
-                  </HStack>
+                  <ImageSelectButton
+                    onFileSelect={(file: File) => {
+                      setImage(file);
+                      setError("");
+                    }}
+                    onError={(message: string) => {
+                      setError(message);
+                    }}
+                  />
                 </FormControl>
+
+                <Text color="red.500">{error}</Text>
 
                 <HStack width="100%" marginTop={10}>
                   <Button type="submit" colorScheme="green">
