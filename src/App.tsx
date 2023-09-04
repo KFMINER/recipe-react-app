@@ -11,7 +11,7 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Navigate replace to="/#/recipes" />} />
+        <Route path="/" element={<Navigate replace to="/recipes" />} />
         <Route path="/login" element={<PageLogin />} />
         <Route path="/signup" element={<PageSignup />} />
         <Route path="/recipeform" element={<PageRecipeForm />} />
