@@ -1,7 +1,7 @@
-import { Box, Button, HStack, Textarea } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import useAutosizeTextArea from "../hooks/useAutosizeTextArea";
+import { Box, Button, HStack, Textarea } from "@chakra-ui/react";
 
 interface Props {
   text: string;
@@ -9,6 +9,12 @@ interface Props {
   onDelete: () => void;
 }
 
+/**
+ * A component, on which the user can input a new recipe-step.
+ * Also contains a button to delete the current step.
+ * @returns StepInput component
+ * @author Kevin Friedrichs
+ */
 const StepInput = ({ text, onChange, onDelete }: Props) => {
   const [value, setValue] = useState("");
   const textAreaRef = useRef<HTMLTextAreaElement>(null);

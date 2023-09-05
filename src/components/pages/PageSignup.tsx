@@ -1,3 +1,12 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Trans, useTranslation } from "react-i18next";
+import { BiSolidUser } from "react-icons/bi";
+import { FaKey } from "react-icons/fa";
+import { FieldValues, useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import userService from "../../services/user-service";
 import {
   Box,
   Center,
@@ -10,16 +19,12 @@ import {
   FormControl,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { BiSolidUser } from "react-icons/bi";
-import { FaKey } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import userService from "../../services/user-service";
-import { Trans, useTranslation } from "react-i18next";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FieldValues, useForm } from "react-hook-form";
 
+/**
+ * A page component, on which the user can create a new account.
+ * @returns Signup-Page component
+ * @author Kevin Friedrichs
+ */
 const PageSignup = () => {
   const { t } = useTranslation();
 
@@ -55,20 +60,25 @@ const PageSignup = () => {
 
   type FormData = z.infer<typeof schema>;
 
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
 
+  /**
+   * Send formData to backend for account creation.
+   * Redirects to loginPage on success, or displays error in failure.
+   * @param data Input-Form data (username, password, confirmPassword)
+   */
   const onSubmit = (data: FieldValues) => {
     const user = {
       username: data.username,
       password: data.password,
     };
-    const { request, cancel } = userService.create(user);
+    const { request } = userService.create(user);
     request
       .then((res) => navigate("/login"))
       .catch((err) => setError(t("signupPageError-" + err.response.status)));

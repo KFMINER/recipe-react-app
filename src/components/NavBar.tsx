@@ -1,14 +1,20 @@
-import { Box, Flex, HStack, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
+import { useTranslation } from "react-i18next";
+import { FaClipboardList, FaHome, FaPlus } from "react-icons/fa";
 import { BsFillBox2HeartFill, BsFillBoxFill } from "react-icons/bs";
 import SearchBar from "./SearchBar";
 import UserInfo from "./UserInfo";
 import NavButton from "./NavButton";
-import { FaClipboardList, FaHome, FaPlus } from "react-icons/fa";
 import NavLogin from "./NavLogin";
-import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { Box, Flex, HStack, Text } from "@chakra-ui/react";
 
+/**
+ * A component, which serves as a Navigation Bar.
+ * Contains a Logo, a SearchBar, NavButtons and the UserInfo, or signup and login buttons.
+ * @returns NavBar component
+ * @author Kevin Friedrichs
+ */
 const NavBar = () => {
   const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();

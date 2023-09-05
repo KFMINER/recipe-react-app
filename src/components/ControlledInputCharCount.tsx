@@ -1,5 +1,5 @@
-import { Input, InputGroup, InputRightElement, Text } from "@chakra-ui/react";
 import { LegacyRef, useState } from "react";
+import { Input, InputGroup, InputRightElement, Text } from "@chakra-ui/react";
 
 interface Props {
   maxLength: number;
@@ -7,6 +7,12 @@ interface Props {
   placeholder: string;
 }
 
+/**
+ * A component like a text-input-field,
+ * but in this component the current length of the text input is displayed.
+ * @returns ControlledInputCharCount component
+ * @author Kevin Friedrichs
+ */
 const ControlledInputCharCount = ({
   maxLength,
   reference,

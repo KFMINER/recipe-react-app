@@ -1,5 +1,10 @@
 import { Card, CardBody, Skeleton, SkeletonText } from "@chakra-ui/react";
 
+/**
+ * A component, which serves as a loading indicator for a recipe card.
+ * @returns RecipeCardSkeleton component
+ * @author Kevin Friedrichs
+ */
 const RecipeCardSkeleton = () => {
   return (
     <Card width="250px" borderRadius={10}>

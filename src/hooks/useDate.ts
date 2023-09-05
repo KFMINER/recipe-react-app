@@ -1,3 +1,8 @@
+/**
+ * A hook to convert a timestamp in seconds (since 01.01.1970) to a Date object or formatted string.
+ * @returns getDateFromSeconds(), getDateFromSecondsFormatted()
+ * @author Kevin Friedrichs
+ */
 const useDate = () => {
 
   const getDateFromSeconds = (seconds?: number) => {

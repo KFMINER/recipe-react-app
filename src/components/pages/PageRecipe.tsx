@@ -1,5 +1,16 @@
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuthUser, useIsAuthenticated } from "react-auth-kit";
+import { useTranslation } from "react-i18next";
+import { BsFillHeartbreakFill, BsHeartFill } from "react-icons/bs";
+import { FaFilePdf } from "react-icons/fa6";
+import { FaUserCircle } from "react-icons/fa";
+import { AiFillEdit } from "react-icons/ai";
+import { RiDeleteBin6Fill } from "react-icons/ri";
+import recipeService from "../../services/recipe-service";
+import useRecipe from "../../hooks/useRecipe";
+import useDate from "../../hooks/useDate";
+import DeleteDialog from "../DeleteDialog";
 import {
   Box,
   Center,
@@ -19,28 +30,22 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
-import { BsFillHeartbreakFill, BsHeartFill } from "react-icons/bs";
-import { FaFilePdf } from "react-icons/fa6";
-import { FaUserCircle } from "react-icons/fa";
-import { AiFillEdit } from "react-icons/ai";
-import { RiDeleteBin6Fill } from "react-icons/ri";
-import useRecipe from "../../hooks/useRecipe";
-import { useEffect } from "react";
-import recipeService from "../../services/recipe-service";
-import useDate from "../../hooks/useDate";
-import DeleteDialog from "../DeleteDialog";
-import { useTranslation } from "react-i18next";
 
+/**
+ * A page component, on which a single recipe is being displayed.
+ * @returns Recipe-Page component
+ * @author Kevin Friedrichs
+ */
 const PageRecipe = () => {
   const auth = useAuthUser();
   const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
   const { recipeId } = useParams();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { t } = useTranslation();
   const { recipe, loadRecipeById, addToFavorites, removeFromFavorites } =
     useRecipe();
   const { getDateFromSecondsFormatted } = useDate();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { t } = useTranslation();
 
   // Load Recipe by recipe-id from params
   useEffect(() => {
@@ -49,8 +54,12 @@ const PageRecipe = () => {
     }
   }, [recipeId]);
 
+  /**
+   * Delete the current recipe.
+   * Redirect to "/" on success.
+   */
   const handleDelete = () => {
-    const { request, cancel } = recipeService.delete(recipe!.id);
+    const { request } = recipeService.delete(recipe!.id);
     request.then(() => navigate("/"));
   };
 

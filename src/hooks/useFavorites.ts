@@ -4,6 +4,11 @@ import { CanceledError } from "../services/api-client";
 import favoriteService from "../services/favorite-service";
 import { useAuthUser } from "react-auth-kit";
 
+/**
+ * A hook to set or unset the favorite state for the current user on a specified recipe.
+ * @returns createFavorite(), deleteFavorite(), error
+ * @author Kevin Friedrichs
+ */
 const usefavorites = () => {
   const [error, setError] = useState("");
   const auth = useAuthUser();

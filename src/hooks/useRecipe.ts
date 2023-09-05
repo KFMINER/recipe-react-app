@@ -3,6 +3,11 @@ import recipeService, { Recipe } from "../services/recipe-service";
 import { CanceledError } from "../services/api-client";
 import useFavorites from "./useFavorites";
 
+/**
+ * A hook to load a specific recipe by its ID from the server.
+ * @returns recipe, error, isLoading, setError(), loadRecipeById(), unsetRecipe(), addToFavorites(), removeFromFavorites()
+ * @author Kevin Friedrichs
+ */
 const useRecipe = () => {
   const [recipe, setRecipe] = useState<Recipe | null>();
   const [error, setError] = useState("");

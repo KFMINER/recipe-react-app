@@ -1,3 +1,13 @@
+import { FormEvent, useEffect, useRef, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useAuthUser, useIsAuthenticated } from "react-auth-kit";
+import { useTranslation } from "react-i18next";
+import IngredientInput from "../IngredientInput";
+import ImageSelectButton from "../ImageSelectButton";
+import recipeService, { Ingredient, Step } from "../../services/recipe-service";
+import useRecipe from "../../hooks/useRecipe";
+import StepInput from "../StepInput";
+import ControlledInputCharCount from "../ControlledInputCharCount";
 import {
   Box,
   Button,
@@ -6,50 +16,46 @@ import {
   FormControl,
   FormLabel,
   HStack,
-  Input,
   VStack,
   Text,
 } from "@chakra-ui/react";
-import IngredientInput from "../IngredientInput";
-import { FormEvent, useEffect, useRef, useState } from "react";
-import ImageSelectButton from "../ImageSelectButton";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useAuthUser, useIsAuthenticated } from "react-auth-kit";
-import recipeService, { Ingredient, Step } from "../../services/recipe-service";
-import useRecipe from "../../hooks/useRecipe";
-import StepInput from "../StepInput";
-import { useTranslation } from "react-i18next";
-import ControlledInputCharCount from "../ControlledInputCharCount";
 
+/**
+ * A page component, on which the user can create a new recipe,
+ * or edit an exisiting one. When called with "recipeId" as searchParam,
+ * the data of the existing recipe will be loaded into the input fields.
+ * @returns Recipe-Form-Page component
+ * @author Kevin Friedrichs
+ */
 const PageRecipeForm = () => {
   const auth = useAuthUser();
   const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
-  const { recipe, isLoading, loadRecipeById, unsetRecipe } = useRecipe();
+  const { recipe, loadRecipeById, unsetRecipe } = useRecipe();
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [steps, setSteps] = useState<Step[]>([]);
   const [canAddIngredient, setCanAddIngredient] = useState(false);
   const [canAddStep, setCanAddStep] = useState(false);
   const [image, setImage] = useState<File>();
-  const nameRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState("");
-  const { t } = useTranslation();
+  const nameRef = useRef<HTMLInputElement>(null);
 
-  // Authentication required for this page
+  // Authentication required for this page.
   useEffect(() => {
     if (!isAuthenticated()) {
       navigate("/login");
     }
   }, [isAuthenticated()]);
 
-  // Check for empty ingredients and steps, so that no new input fields can be added for these while there are still empty ones
+  // Check for empty ingredients and steps, so that no new input fields can be added for these while there are still empty ones.
   useEffect(() => {
     checkForEmptyIngredients();
     checkForEmptySteps();
   });
 
-  // Load Recipe by recipe-id from params or unset existing recipe if no id was set
+  // Load recipe by recipe-id from params or unset existing recipe if no id was set.
   // (Happens if user switches from edit-form to new-form)
   useEffect(() => {
     if (searchParams.get("recipeId")) {
@@ -59,7 +65,7 @@ const PageRecipeForm = () => {
     }
   }, [searchParams.get("recipeId")]);
 
-  // Fill in (or clear) input values if recipe changes
+  // Fill in (or clear) input values if recipe changes.
   useEffect(() => {
     if (recipe && recipe?.user_id === auth()?.id) {
       nameRef.current!.value = recipe!.name;
@@ -75,7 +81,9 @@ const PageRecipeForm = () => {
     }
   }, [recipe]);
 
-  // Check if list contains empty ingredients. Can't add new entry if empty ingredient exists
+  /**
+   * Check if list contains empty ingredients. Can't add a new entry if empty ingredient exists.
+   */
   const checkForEmptyIngredients = () => {
     setCanAddIngredient(true);
     ingredients.forEach((ingredient: Ingredient) => {
@@ -85,7 +93,9 @@ const PageRecipeForm = () => {
     });
   };
 
-  // Check if list contains empty steps. Can't add new entry if empty step exists
+  /**
+   * Check if list contains empty steps. Can't add new entry if empty step exists.
+   */
   const checkForEmptySteps = () => {
     setCanAddStep(true);
     steps.forEach((step: Step) => {
@@ -95,16 +105,25 @@ const PageRecipeForm = () => {
     });
   };
 
-  // Add empty ingredient to list
+  /**
+   * Add an empty ingredient to the list.
+   */
   const addEmptyIngredient = () => {
     setIngredients([...ingredients, { name: "", amount: "" }]);
   };
 
-  // Add empty step to list
+  /**
+   * Add an empty step to the list.
+   */
   const addEmptyStep = () => {
     setSteps([...steps, { id: 0, text: "" }]);
   };
 
+  /**
+   * Send formData to the backend for creation/editing and storage of the recipe.
+   * Redirects to "/" for a new recipe or to the recipe page for the edited recipe.
+   * @param e Event-data
+   */
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
@@ -118,15 +137,15 @@ const PageRecipeForm = () => {
       formData.append("image", image!);
     }
 
-    // Edit existing recipe
+    // Edit existing recipe, or create a new one.
     if (recipe !== undefined && recipe !== null) {
       formData.append("recipeId", recipe.id.toString());
-      const { request, cancel } = recipeService.update(recipe.id, formData);
+      const { request } = recipeService.update(recipe.id, formData);
       request
         .then(() => navigate(`/recipes/${recipe.id}`))
         .catch((err) => setError(err.message));
     } else {
-      const { request, cancel } = recipeService.create(formData);
+      const { request } = recipeService.create(formData);
       request
         .then((res) => navigate("/"))
         .catch((err) => setError(err.message));

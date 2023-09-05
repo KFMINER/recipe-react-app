@@ -11,6 +11,14 @@ export interface Params {
   authUserId: string;
 }
 
+/**
+ * A page component, on which multiple recipes can be displayed via RecipeCard components.
+ * The displayed reciped can be filtered with searchParams:
+ * - **userId** returns the recipes for the corresponding user.
+ * - **favorites** (bool) returns the favorite recipes for the current user if the **authUserId** is also set.
+ * @returns Recipes-Page component.
+ * @author Kevin Friedrichs
+ */
 const PageRecipes = () => {
   const [searchParams] = useSearchParams();
   const auth = useAuthUser();

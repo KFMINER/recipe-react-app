@@ -1,7 +1,7 @@
-import { Box, Button, Grid, GridItem, HStack, Input } from "@chakra-ui/react";
 import { ChangeEvent } from "react";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
+import { Box, Button, Grid, GridItem, HStack, Input } from "@chakra-ui/react";
 
 interface Props {
   name?: string;
@@ -11,6 +11,13 @@ interface Props {
   onDelete: () => void;
 }
 
+/**
+ * A component, on which the user can input a new ingredient.
+ * An Ingredient consists of a name and an amount.
+ * Also this component contains a button to delete the current ingredient.
+ * @returns IngredientInput component
+ * @author Kevin Friedrichs
+ */
 const IngredientInput = ({
   name,
   amount,

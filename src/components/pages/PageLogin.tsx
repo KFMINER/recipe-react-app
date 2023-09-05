@@ -1,3 +1,13 @@
+import { useState } from "react";
+import useSignIn from "react-auth-kit/dist/hooks/useSignIn";
+import { BiSolidUser } from "react-icons/bi";
+import { FaKey } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { Trans, useTranslation } from "react-i18next";
+import { FieldValues, useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import userService, { User } from "../../services/user-service";
 import {
   Input,
   InputGroup,
@@ -10,17 +20,14 @@ import {
   Text,
   Link,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { BiSolidUser } from "react-icons/bi";
-import { FaKey } from "react-icons/fa";
-import useSignIn from "react-auth-kit/dist/hooks/useSignIn";
-import { useNavigate } from "react-router-dom";
-import userService, { User } from "../../services/user-service";
-import { Trans, useTranslation } from "react-i18next";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FieldValues, useForm } from "react-hook-form";
 
+/**
+ * A page component, where users can input their login credentials.
+ * Redirects to "/" after successful login.
+ * Uses react-auth-kit package for authentication.
+ * @returns Login-Page component
+ * @author Kevin Friedrichs
+ */
 const PageLogin = () => {
   const { t } = useTranslation();
 
@@ -40,15 +47,17 @@ const PageLogin = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
-  const [error, setError] = useState("");
   const signIn = useSignIn();
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
+  /**
+   * Send login credentials to backend for confirmation.
+   * Sign in on success, or display error on failure.
+   * @param data Input-Form data (username, password)
+   */
   const onSubmit = (data: FieldValues) => {
-    const { request, cancel } = userService.get<User>(
-      data.username,
-      data.password
-    );
+    const { request } = userService.get<User>(data.username, data.password);
     request
       .then((res) => {
         signIn({

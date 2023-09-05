@@ -1,5 +1,5 @@
-import { VStack, Text, Box } from "@chakra-ui/react";
 import { ReactNode, useState } from "react";
+import { VStack, Text, Box } from "@chakra-ui/react";
 
 interface Props {
   children: ReactNode;
@@ -7,6 +7,12 @@ interface Props {
   onClick: () => void;
 }
 
+/**
+ * A component, which acts as a vertical icon button with text.
+ * Used in NavBar component.
+ * @returns NavButton component
+ * @author Kevin Friedrichs
+ */
 const NavButton = ({ children, label, onClick }: Props) => {
   const [isHovered, setHovered] = useState(false);
 

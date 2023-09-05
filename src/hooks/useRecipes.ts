@@ -3,6 +3,11 @@ import recipeService, { Recipe } from "../services/recipe-service";
 import { CanceledError } from "../services/api-client";
 import { Params } from "../components/pages/PageRecipes"
 
+/**
+ * A hook to load multiple recipes from the server.
+ * @returns recipes, error, isLoading, setRecipes(), setError()
+ * @author Kevin Friedrichs
+ */
 const useRecipes = (params?: Params) => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [error, setError] = useState("");

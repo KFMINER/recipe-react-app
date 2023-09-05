@@ -1,3 +1,8 @@
+import { useAuthUser } from "react-auth-kit";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import useSignOut from "react-auth-kit/dist/hooks/useSignOut";
+import { FaUserCircle } from "react-icons/fa";
 import {
   Box,
   HStack,
@@ -7,12 +12,13 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
-import { FaUserCircle } from "react-icons/fa";
-import useSignOut from "react-auth-kit/dist/hooks/useSignOut";
-import { useAuthUser } from "react-auth-kit";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 
+/**
+ * A component, on which the current user is displayed.
+ * Also contains a button to logout the current user.
+ * @returns UserInfo component
+ * @author Kevin Friedrichs
+ */
 const UserInfo = () => {
   const signOut = useSignOut();
   const auth = useAuthUser();

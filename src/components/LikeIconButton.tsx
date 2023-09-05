@@ -1,6 +1,6 @@
-import { Box } from "@chakra-ui/react";
 import { useState } from "react";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
+import { Box } from "@chakra-ui/react";
 
 interface Props {
   onMouseEnter: () => void;
@@ -9,6 +9,11 @@ interface Props {
   active: boolean;
 }
 
+/**
+ * A component, which acts as a simple icon-button without text.
+ * @returns LikeIconButton component
+ * @author Kevin Friedrichs
+ */
 const LikeIconButton = ({
   onMouseEnter,
   onMouseLeave,

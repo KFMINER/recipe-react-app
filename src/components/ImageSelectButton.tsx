@@ -1,13 +1,19 @@
-import { Box, HStack, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaImage } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { Box, HStack, Text } from "@chakra-ui/react";
 
 interface Props {
   onFileSelect: (file: File) => void;
   onError: (message: string) => void;
 }
 
+/**
+ * A component which acts as a file input.
+ * Only accepts JPG and PNG files.
+ * @returns ImageSelectButton component
+ * @author Kevin Friedrichs
+ */
 const ImageSelectButton = ({ onFileSelect, onError }: Props) => {
   const [fileName, setFileName] = useState<string>();
   const [isHovered, setHovered] = useState(false);

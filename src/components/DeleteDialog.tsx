@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -7,8 +9,6 @@ import {
   AlertDialogOverlay,
   Button,
 } from "@chakra-ui/react";
-import { useRef } from "react";
-import { useTranslation } from "react-i18next";
 
 interface Props {
   onConfirm: () => void;
@@ -16,6 +16,12 @@ interface Props {
   isOpen: boolean;
 }
 
+/**
+ * A component, which serves as a popup alert dialog,
+ * to ask the user if he really wants to delete the current recipe.
+ * @returns DeleteDialog component
+ * @author Kevin Friedrichs
+ */
 const DeleteDialog = ({ onConfirm, isOpen, onClose }: Props) => {
   const cancelRef = useRef<HTMLButtonElement>(null);
   const { t } = useTranslation();

@@ -1,16 +1,22 @@
-import { Card, CardBody, HStack, Heading, Image } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import LikeIconButton from "./LikeIconButton";
 import { useIsAuthenticated } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
+import LikeIconButton from "./LikeIconButton";
 import { Recipe } from "../services/recipe-service";
 import useFavorites from "../hooks/useFavorites";
+import { Card, CardBody, HStack, Heading, Image } from "@chakra-ui/react";
 
 interface Props {
   recipe: Recipe;
   onFavoriteChange: (isFavorite?: boolean) => void;
 }
 
+/**
+ * A component, on which a single recipe is displayed as a card.
+ * Contains the image, the title and a like button.
+ * @returns RecipeCard component
+ * @author Kevin Friedrichs
+ */
 const RecipeCard = ({ recipe, onFavoriteChange }: Props) => {
   const [isHovered, setHovered] = useState(false);
 
