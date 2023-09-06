@@ -18,7 +18,7 @@ export interface Recipe {
   name: string;
   ingredients: Ingredient[];
   steps: Step[];
-  image: File;
+  image: string;
   isFavorite?: boolean;
   created: number;
   updated: number;

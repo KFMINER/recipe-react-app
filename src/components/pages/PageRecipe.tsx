@@ -11,6 +11,7 @@ import recipeService from "../../services/recipe-service";
 import useRecipe from "../../hooks/useRecipe";
 import useDate from "../../hooks/useDate";
 import DeleteDialog from "../DeleteDialog";
+import defaultImage from "../../assets/default.png";
 import {
   Box,
   Center,
@@ -80,8 +81,10 @@ const PageRecipe = () => {
               </Heading>
               <Image
                 src={
-                  "https://recipe-express-app-production.up.railway.app/images/" +
-                  recipe?.image
+                  recipe?.image !== "default"
+                    ? "https://recipe-express-app-production.up.railway.app/images/" +
+                      recipe?.image
+                    : defaultImage
                 }
                 borderRadius={10}
                 width="642px"

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import LikeIconButton from "./LikeIconButton";
 import { Recipe } from "../services/recipe-service";
 import useFavorites from "../hooks/useFavorites";
+import defaultImage from "../assets/default.png";
 import { Card, CardBody, HStack, Heading, Image } from "@chakra-ui/react";
 
 interface Props {
@@ -44,8 +45,10 @@ const RecipeCard = ({ recipe, onFavoriteChange }: Props) => {
       <CardBody>
         <Image
           src={
-            "https://recipe-express-app-production.up.railway.app/images/" +
-            recipe.image
+            recipe.image !== "default"
+              ? "https://recipe-express-app-production.up.railway.app/images/" +
+                recipe.image
+              : defaultImage
           }
           borderRadius="lg"
           width="100%"
