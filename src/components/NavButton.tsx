@@ -32,7 +32,7 @@ const NavButton = ({ children, label, onClick }: Props) => {
       <Box width="20px" fontSize="20px">
         {children}
       </Box>
-      <Text fontSize="sm" whiteSpace="nowrap">
+      <Text fontSize="sm" whiteSpace="nowrap" className="prevent-select">
         {label}
       </Text>
     </VStack>

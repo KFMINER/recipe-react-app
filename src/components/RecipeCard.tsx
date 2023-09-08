@@ -68,6 +68,7 @@ const RecipeCard = ({ recipe, onFavoriteChange }: Props) => {
             color={isHovered ? "green.400" : "gray.700"}
             transitionProperty="common"
             transitionDuration="fast"
+            className="prevent-select"
           >
             {recipe.name}
           </Heading>

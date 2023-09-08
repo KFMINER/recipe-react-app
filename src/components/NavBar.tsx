@@ -27,7 +27,13 @@ const NavBar = () => {
         <BsFillBoxFill color="white" fontSize="30px" />
       </Box>
 
-      <Text fontSize="2xl" color="white" marginTop={-1} marginRight={100}>
+      <Text
+        fontSize="2xl"
+        color="white"
+        marginTop={-1}
+        marginRight={100}
+        className="prevent-select"
+      >
         Recipe<b>Box</b>
       </Text>
 
