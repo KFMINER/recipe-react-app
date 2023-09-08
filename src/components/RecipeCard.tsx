@@ -20,12 +20,14 @@ interface Props {
  */
 const RecipeCard = ({ recipe, onFavoriteChange }: Props) => {
   const [isHovered, setHovered] = useState(false);
+  const [isFavorite, setFavorite] = useState(recipe.isFavorite);
 
   const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
   const { createFavorite, deleteFavorite } = useFavorites();
 
   useEffect(() => {
+    setFavorite(recipe.isFavorite);
     onFavoriteChange(recipe.isFavorite);
   }, [recipe.isFavorite]);
 
@@ -76,9 +78,8 @@ const RecipeCard = ({ recipe, onFavoriteChange }: Props) => {
               onMouseEnter={() => setHovered(false)}
               onMouseLeave={() => setHovered(true)}
               onClick={() => {
-                recipe.isFavorite
-                  ? deleteFavorite(recipe)
-                  : createFavorite(recipe);
+                setFavorite(!isFavorite);
+                isFavorite ? deleteFavorite(recipe) : createFavorite(recipe);
               }}
               active={recipe.isFavorite!}
             />
