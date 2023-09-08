@@ -37,7 +37,7 @@ const NavBar = () => {
         Recipe<b>Box</b>
       </Text>
 
-      <SearchBar isDisabled />
+      <SearchBar />
 
       <HStack marginX={10} gap="15px">
         <NavButton label={t("navHome")} onClick={() => navigate("/recipes")}>

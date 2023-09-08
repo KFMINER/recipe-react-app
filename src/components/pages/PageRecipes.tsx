@@ -9,6 +9,7 @@ export interface Params {
   userId: string | null;
   favorites: string | null;
   authUserId: string;
+  search: string | null;
 }
 
 /**
@@ -27,6 +28,7 @@ const PageRecipes = () => {
     userId: searchParams.get("userId"),
     favorites: searchParams.get("favorites"),
     authUserId: auth()?.id,
+    search: searchParams.get("search"),
   };
 
   const { recipes, setRecipes, isLoading } = useRecipes(params);

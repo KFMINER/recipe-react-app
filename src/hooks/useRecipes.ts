@@ -28,7 +28,7 @@ const useRecipes = (params?: Params) => {
       });
 
     return () => cancel();
-  }, [params?.favorites, params?.userId]);
+  }, [params?.favorites, params?.userId, params?.search]);
 
   return { recipes, error, isLoading, setRecipes, setError };
 }
