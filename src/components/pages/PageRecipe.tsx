@@ -81,11 +81,10 @@ const PageRecipe = () => {
               </Heading>
               <Image
                 src={
-                  recipe?.image !== "default"
-                    ? "https://recipe-express-app-production.up.railway.app/images/" +
-                      recipe?.image
-                    : defaultImage
+                  "https://recipe-express-app-production.up.railway.app/images/" +
+                  recipe?.image
                 }
+                fallbackSrc={defaultImage}
                 borderRadius={10}
                 width="642px"
                 height="428px"

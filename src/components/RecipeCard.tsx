@@ -45,11 +45,10 @@ const RecipeCard = ({ recipe, onFavoriteChange }: Props) => {
       <CardBody>
         <Image
           src={
-            recipe.image !== "default"
-              ? "https://recipe-express-app-production.up.railway.app/images/" +
-                recipe.image
-              : defaultImage
+            "https://recipe-express-app-production.up.railway.app/images/" +
+            recipe.image
           }
+          fallbackSrc={defaultImage}
           borderRadius="lg"
           width="100%"
           height="250px"
