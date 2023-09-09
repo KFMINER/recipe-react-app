@@ -19,6 +19,7 @@ import {
   Box,
   Text,
   Link,
+  Checkbox,
 } from "@chakra-ui/react";
 
 /**
@@ -38,6 +39,7 @@ const PageLogin = () => {
     password: z
       .string()
       .min(1, { message: t("loginPageErrorPasswordRequired") }),
+    stayLoggedIn: z.boolean().optional(),
   });
 
   type FormData = z.infer<typeof schema>;
@@ -57,12 +59,14 @@ const PageLogin = () => {
    * @param data Input-Form data (username, password)
    */
   const onSubmit = (data: FieldValues) => {
+    const expirationDays = 14; // Change value to set expiration date for logged in users
+
     const { request } = userService.get<User>(data.username, data.password);
     request
       .then((res) => {
         signIn({
           token: res.data.token,
-          expiresIn: 3600,
+          expiresIn: data.stayLoggedIn ? expirationDays * 24 * 60 : 1440,
           tokenType: "Bearer",
           authState: {
             id: res.data.id,
@@ -88,7 +92,7 @@ const PageLogin = () => {
         >
           <Center>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <VStack gap={2}>
+              <VStack gap={2} alignItems="start">
                 <FormControl isInvalid={errors.username ? true : false}>
                   <InputGroup>
                     <Input
@@ -120,6 +124,14 @@ const PageLogin = () => {
                     {errors.password && errors.password.message}
                   </FormErrorMessage>
                 </FormControl>
+
+                <Checkbox
+                  marginLeft={1}
+                  marginTop={3}
+                  {...register("stayLoggedIn")}
+                >
+                  Angemeldet bleiben
+                </Checkbox>
 
                 <Text fontSize={"sm"} color="red.500">
                   {error}
