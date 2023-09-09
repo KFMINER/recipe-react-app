@@ -42,11 +42,13 @@
   "deleteDialogButtonConfirm": "Löschen",
 
   "userInfoMenuItemSignOut": "Abmelden",
+  "userInfoMenuItemChangePassword": "Passwort ändern",
 
   "loginPageInputPlaceholderUsername": "Benutzername",
   "loginPageInputPlaceholderPassword": "Passwort",
   "loginPageButtonLogin": "Anmelden",
   "loginPageLinkToSignupPage": "Noch kein Account? <0>Jetzt registrieren</0>",
+  "loginPageCheckboxStayLoggedIn": "Angemeldet bleiben",
   "loginPageErrorUsernameRequired": "Benutzername wird benötigt.",
   "loginPageErrorPasswordRequired": "Passwort wird benötigt.",
   "loginPageError-400": "Benutzername oder Passwort falsch.",
@@ -62,8 +64,23 @@
   "signupPageErrorPasswordLengthMax": "Das Passwort darf nicht mehr als 255 Zeichen enthalten.",
   "signupPageErrorPasswordNoUpperCase": "Das Passwort sollte min. 1 Großbuchstaben enthalten.",
   "signupPageErrorPasswordNoLowerCase": "Das Passwort sollte min. 1 Kleinbuchstaben enthalten.",
-  "signupPageErrorConfirmPasswordRequired": "Bitte wiederhole dein Passwort.",
+  "signupPageErrorConfirmPasswordRequired": "Bitte wiederhole das Passwort.",
   "signupPageErrorConfirmPasswordNotMatching": "Die Passwörter stimmen nicht überein.",
-  "signupPageError-400": "Der Benutzername ist bereits vergeben."
+  "signupPageError-400": "Der Benutzername ist bereits vergeben.",
 
+  "changePasswordPageInputPlaceholderPassword": "Aktuelles Passwort",
+  "changePasswordPageInputPlaceholderNewPassword": "Neues Passwort",
+  "changePasswordPageInputPlaceholderNewPasswordConfirm": "Passwort wiederholen",
+  "changePasswordPageButtonSubmit": "Passwort ändern",
+  "changePasswordPageErrorPasswordRequired": "Aktuelles Passwort wird benötigt.",
+  "changePasswordPageErrorNewPasswordRequired": "Neues Passwort wird benötigt.",
+  "changePasswordPageErrorNewPasswordLengthMin": "Das Passwort sollte min. 8 Zeichen enthalten.",
+  "changePasswordPageErrorNewPasswordLengthMax": "Das Passwort darf nicht mehr als 255 Zeichen enthalten.",
+  "changePasswordPageErrorNewPasswordNoUpperCase": "Das Passwort sollte min. 1 Großbuchstaben enthalten.",
+  "changePasswordPageErrorNewPasswordNoLowerCase": "Das Passwort sollte min. 1 Kleinbuchstaben enthalten.",
+  "changePasswordPageErrorConfirmPasswordRequired": "Bitte wiederhole das neue Passwort.",
+  "changePasswordPageErrorConfirmPasswordNotMatching": "Die Passwörter stimmen nicht überein.",
+  "changePasswordPageErrorChangingPassword": "Das Passwort konnte nicht geändert werden.",
+  "changePasswordPageError-400": "Das aktuelle Passwort ist nicht korrekt.",
+  "changePasswordPageError-404": "Der Server ist derzeit nicht erreichbar."
 }

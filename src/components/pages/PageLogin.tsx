@@ -130,7 +130,7 @@ const PageLogin = () => {
                   marginTop={3}
                   {...register("stayLoggedIn")}
                 >
-                  Angemeldet bleiben
+                  {t("loginPageCheckboxStayLoggedIn")}
                 </Checkbox>
 
                 <Text fontSize={"sm"} color="red.500">

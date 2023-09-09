@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import useSignOut from "react-auth-kit/dist/hooks/useSignOut";
 import { FaUserCircle } from "react-icons/fa";
+import { PiSignOut } from "react-icons/pi";
+import { RiLockPasswordLine } from "react-icons/ri";
 import {
   Box,
   HStack,
@@ -39,12 +41,21 @@ const UserInfo = () => {
       </MenuButton>
       <MenuList>
         <MenuItem
+          icon={<PiSignOut />}
           onClick={() => {
             signOut();
             navigate("/");
           }}
         >
           {t("userInfoMenuItemSignOut")}
+        </MenuItem>
+        <MenuItem
+          icon={<RiLockPasswordLine />}
+          onClick={() => {
+            navigate("/changepassword");
+          }}
+        >
+          {t("userInfoMenuItemChangePassword")}
         </MenuItem>
       </MenuList>
     </Menu>
