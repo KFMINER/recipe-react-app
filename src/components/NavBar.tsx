@@ -23,21 +23,22 @@ const NavBar = () => {
 
   return (
     <HStack paddingX={5} bg="green.400" height="60px">
-      <Box width="30px">
-        <BsFillBoxFill color="white" fontSize="30px" />
-      </Box>
+      <HStack onClick={() => navigate("/")} flexBasis="auto" cursor="pointer">
+        <Box width="30px">
+          <BsFillBoxFill color="white" fontSize="30px" />
+        </Box>
 
-      <Text
-        fontSize="2xl"
-        color="white"
-        marginTop={-1}
-        marginRight={100}
-        className="prevent-select"
-      >
-        Recipe<b>Box</b>
-      </Text>
+        <Text
+          fontSize="2xl"
+          color="white"
+          marginTop={-1}
+          className="prevent-select"
+        >
+          Recipe<b>Box</b>
+        </Text>
+      </HStack>
 
-      <SearchBar />
+      <SearchBar marginLeft="80px" />
 
       <HStack marginX={10} gap="15px">
         <NavButton label={t("navHome")} onClick={() => navigate("/recipes")}>

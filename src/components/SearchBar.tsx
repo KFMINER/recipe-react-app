@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 interface Props {
   isDisabled?: boolean;
+  marginLeft?: string;
 }
 
 /**
@@ -14,7 +15,7 @@ interface Props {
  * @returns SearchBar component
  * @author Kevin Friedrichs
  */
-const SearchBar = ({ isDisabled }: Props) => {
+const SearchBar = ({ isDisabled, marginLeft }: Props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const searchRef = useRef<HTMLInputElement>(null);
@@ -29,7 +30,7 @@ const SearchBar = ({ isDisabled }: Props) => {
   };
 
   return (
-    <Box w="100%">
+    <Box w="100%" marginLeft={marginLeft}>
       <form onSubmit={handleSubmit}>
         <InputGroup size="md" bg="white" borderRadius={8}>
           <Input
