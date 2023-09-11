@@ -36,7 +36,7 @@ const TitleBar = () => {
         justifyContent="space-between"
         position="sticky"
         top="0"
-        zIndex={2}
+        zIndex={3}
       >
         <Box width="30px" cursor="pointer" {...getButtonProps()}>
           <MdMenu color="white" fontSize="30px" />
@@ -68,13 +68,13 @@ const TitleBar = () => {
         animate={{ width: isOpen ? 250 : 0 }}
         style={{
           background: "white",
-          overflow: "hidden",
+          overflowX: "hidden",
           whiteSpace: "nowrap",
           position: "fixed",
           left: "0",
           top: "60px",
           height: "calc(100vh - 60px)",
-          zIndex: 1,
+          zIndex: 2,
           boxShadow: "0 4px 12px 0 rgba(0,0,0,0.05)",
         }}
       >
@@ -167,6 +167,18 @@ const TitleBar = () => {
           </VStack>
         </VStack>
       </motion.div>
+
+      {/* Overlay */}
+      <Box
+        width="100%"
+        height="calc(100vh - 60px)"
+        bg="rgba(0,0,0,0.7)"
+        position="fixed"
+        zIndex={1}
+        onClick={onClose}
+        onWheel={onClose}
+        display={isOpen ? "block" : "none"}
+      />
     </>
   );
 };
