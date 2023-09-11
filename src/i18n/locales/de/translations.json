@@ -19,6 +19,10 @@
   "recipeFormButtonCreate": "Rezept erstellen",
   "recipeFormButtonEdit": "Rezept bearbeiten",
   "recipeFormButtonCancel": "Abbrechen",
+  "recipeFormToastEditedTitle": "Rezept bearbeitet",
+  "recipeFormToastEditedDescription": "Das Rezept wurde erfolgreich bearbeitet.",
+  "recipeFormToastCreatedTitle": "Rezept erstellt",
+  "recipeFormToastCreatedDescription": "Das Rezept wurde erfolgreich erstellt.",
   "recipeFormErrorInvalidFileType": "Der Dateityp '{{type}}' wird nicht unterstützt.",
 
   "imageSelectButton": "Wähle Bild...",
@@ -35,6 +39,8 @@
   "recipePageHeadingSteps": "Zubereitungsschritte",
   "recipePageTableIngredientsColName": "Name",
   "recipePageTableIngredientsColAmount": "Menge",
+  "recipePageToastDeletedTitle": "Rezept löschen",
+  "recipePageToastDeletedDescription": "Das Rezept wurde erfolgreich gelöscht.",
 
   "deleteDialogHeader": "Rezept löschen",
   "deleteDialogBody": "Bist du sicher, dass du dieses Rezept dauerhaft löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden.",
@@ -72,6 +78,8 @@
   "changePasswordPageInputPlaceholderNewPassword": "Neues Passwort",
   "changePasswordPageInputPlaceholderNewPasswordConfirm": "Passwort wiederholen",
   "changePasswordPageButtonSubmit": "Passwort ändern",
+  "changePasswordPageToastPasswordChangedDescription": "Das Passwort wurde erfolgreich geändert.",
+  "changePasswordPageToastPasswordChangedTitle": "Passwort ändern",
   "changePasswordPageErrorPasswordRequired": "Aktuelles Passwort wird benötigt.",
   "changePasswordPageErrorNewPasswordRequired": "Neues Passwort wird benötigt.",
   "changePasswordPageErrorNewPasswordLengthMin": "Das Passwort sollte min. 8 Zeichen enthalten.",

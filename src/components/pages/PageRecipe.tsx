@@ -30,6 +30,7 @@ import {
   HStack,
   Button,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 
 /**
@@ -47,6 +48,7 @@ const PageRecipe = () => {
   const { recipe, loadRecipeById, addToFavorites, removeFromFavorites } =
     useRecipe();
   const { getDateFromSecondsFormatted } = useDate();
+  const toast = useToast();
 
   // Load Recipe by recipe-id from params
   useEffect(() => {
@@ -61,7 +63,17 @@ const PageRecipe = () => {
    */
   const handleDelete = () => {
     const { request } = recipeService.delete(recipe!.id);
-    request.then(() => navigate("/"));
+    request.then(() => {
+      toast({
+        title: t("recipePageToastDeletedTitle"),
+        description: t("recipePageToastDeletedDescription"),
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+      navigate("/");
+    });
   };
 
   return (

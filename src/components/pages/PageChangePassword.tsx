@@ -1,3 +1,11 @@
+import { FieldValues, useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import userService, { User } from "../../services/user-service";
+import { useAuthUser } from "react-auth-kit";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Box,
   Center,
@@ -8,16 +16,13 @@ import {
   VStack,
   Text,
   Heading,
+  useToast,
 } from "@chakra-ui/react";
-import { FieldValues, useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import userService, { User } from "../../services/user-service";
-import { useAuthUser } from "react-auth-kit";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
 
+/**
+ * A page component, on which the user can change the current password.
+ * @returns Change-Password-Page component
+ */
 const PageChangePassword = () => {
   const { t } = useTranslation();
 
@@ -61,16 +66,34 @@ const PageChangePassword = () => {
   const auth = useAuthUser();
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const toast = useToast();
 
+  /**
+   * Check if current password is correct. If so, the new password is sent to
+   * the server and the current password is replaced by the new one.
+   * @param data Input-Form data (password, newPassword, newPasswordConfirm)
+   */
   const onSubmit = (data: FieldValues) => {
+    // Check if the entered password equals the current password for the user
     const { request } = userService.get<User>(auth()?.username, data.password);
     request
       .then((res) => {
+        // Send new password to the server
         const { request } = userService.update(res.data.id, {
           password: data.newPassword,
         });
         request
           .then(() => {
+            toast({
+              title: t("changePasswordPageToastPasswordChangedTitle"),
+              description: t(
+                "changePasswordPageToastPasswordChangedDescription"
+              ),
+              status: "success",
+              duration: 5000,
+              isClosable: true,
+              position: "bottom-right",
+            });
             navigate("/");
           })
           .catch(() => {

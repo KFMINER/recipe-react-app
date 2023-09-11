@@ -37,7 +37,15 @@ const PageRecipes = () => {
     <Box bg="gray.100" minHeight="calc(100vh - 60px)">
       <Center>
         <Flex gap={10} width="100%" flexWrap="wrap" padding={10}>
-          {isLoading && <RecipeCardSkeleton />}
+          {isLoading && (
+            <>
+              <RecipeCardSkeleton />
+              <RecipeCardSkeleton />
+              <RecipeCardSkeleton />
+              <RecipeCardSkeleton />
+              <RecipeCardSkeleton />
+            </>
+          )}
           {!isLoading &&
             recipes.map((recipe, index) => (
               <RecipeCard

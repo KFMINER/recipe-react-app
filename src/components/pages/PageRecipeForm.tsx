@@ -18,6 +18,7 @@ import {
   HStack,
   VStack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 
 /**
@@ -41,6 +42,7 @@ const PageRecipeForm = () => {
   const [image, setImage] = useState<File>();
   const [error, setError] = useState("");
   const nameRef = useRef<HTMLInputElement>(null);
+  const toast = useToast();
 
   // Authentication required for this page.
   useEffect(() => {
@@ -142,12 +144,32 @@ const PageRecipeForm = () => {
       formData.append("recipeId", recipe.id.toString());
       const { request } = recipeService.update(recipe.id, formData);
       request
-        .then(() => navigate(`/recipes/${recipe.id}`))
+        .then(() => {
+          toast({
+            title: t("recipeFormToastEditedTitle"),
+            description: t("recipeFormToastEditedDescription"),
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom-right",
+          });
+          navigate(`/recipes/${recipe.id}`);
+        })
         .catch((err) => setError(err.message));
     } else {
       const { request } = recipeService.create(formData);
       request
-        .then((res) => navigate("/"))
+        .then(() => {
+          toast({
+            title: t("recipeFormToastCreatedTitle"),
+            description: t("recipeFormToastCreatedDescription"),
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom-right",
+          });
+          navigate("/");
+        })
         .catch((err) => setError(err.message));
     }
   };
