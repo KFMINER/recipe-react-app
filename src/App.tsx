@@ -6,11 +6,20 @@ import PageRecipeForm from "./components/pages/PageRecipeForm";
 import PageRecipes from "./components/pages/PageRecipes";
 import PageRecipe from "./components/pages/PageRecipe";
 import PageChangePassword from "./components/pages/PageChangePassword";
+import { Hide, Show } from "@chakra-ui/react";
+import TitleBar from "./components/TitleBar";
 
 function App() {
   return (
     <BrowserRouter>
-      <NavBar />
+      <Show above="xl">
+        <NavBar />
+      </Show>
+
+      <Hide above="xl">
+        <TitleBar />
+      </Hide>
+
       <Routes>
         <Route path="/" element={<Navigate replace to="/recipes" />} />
         <Route path="/login" element={<PageLogin />} />

@@ -36,7 +36,8 @@ const SearchBar = ({ isDisabled, marginLeft }: Props) => {
           <Input
             placeholder={t("searchBarPlaceholderInput")}
             variant="filled"
-            borderRadius={8}
+            borderRadius={10}
+            border="1px solid lightgray"
             bg="white"
             focusBorderColor="green.500"
             isDisabled={isDisabled}

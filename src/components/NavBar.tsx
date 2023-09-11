@@ -74,7 +74,11 @@ const NavBar = () => {
       </HStack>
 
       <Flex justifyContent="flex-end">
-        {isAuthenticated() ? <UserInfo /> : <NavLogin />}
+        {isAuthenticated() ? (
+          <UserInfo color="white" iconColor="white" />
+        ) : (
+          <NavLogin />
+        )}
       </Flex>
     </HStack>
   );
