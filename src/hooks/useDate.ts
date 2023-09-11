@@ -17,7 +17,11 @@ const useDate = () => {
   const getDateFromSecondsFormatted = (seconds?: number) => {
     const date = getDateFromSeconds(seconds);
     if (date) {
-      return date.toLocaleDateString('de-DE');
+      return date.toLocaleDateString('de-DE', {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      });
     }
     return "";
   }
