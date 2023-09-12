@@ -2,12 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
 import { useTranslation } from "react-i18next";
 import { FaClipboardList, FaHome, FaPlus } from "react-icons/fa";
-import { BsFillBox2HeartFill, BsFillBoxFill } from "react-icons/bs";
+import { BsFillBox2HeartFill } from "react-icons/bs";
 import SearchBar from "./SearchBar";
 import UserInfo from "./UserInfo";
 import NavButton from "./NavButton";
 import NavLogin from "./NavLogin";
-import { Box, Flex, HStack, Text } from "@chakra-ui/react";
+import { Flex, HStack } from "@chakra-ui/react";
+import Logo from "./Logo";
 
 /**
  * A component, which serves as a Navigation Bar.
@@ -23,20 +24,7 @@ const NavBar = () => {
 
   return (
     <HStack paddingX={5} bg="green.400" height="60px">
-      <HStack onClick={() => navigate("/")} flexBasis="auto" cursor="pointer">
-        <Box width="30px">
-          <BsFillBoxFill color="white" fontSize="30px" />
-        </Box>
-
-        <Text
-          fontSize="2xl"
-          color="white"
-          marginTop={-1}
-          className="prevent-select"
-        >
-          Recipe<b>Box</b>
-        </Text>
-      </HStack>
+      <Logo />
 
       <SearchBar marginLeft="80px" />
 

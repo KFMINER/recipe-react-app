@@ -32,7 +32,7 @@ const SearchBar = ({ isDisabled, marginLeft }: Props) => {
   return (
     <Box w="100%" marginLeft={marginLeft}>
       <form onSubmit={handleSubmit}>
-        <InputGroup size="md" bg="white" borderRadius={8}>
+        <InputGroup size="md" bg="white" borderRadius={10}>
           <Input
             placeholder={t("searchBarPlaceholderInput")}
             variant="filled"
@@ -43,7 +43,11 @@ const SearchBar = ({ isDisabled, marginLeft }: Props) => {
             isDisabled={isDisabled}
             ref={searchRef}
           />
-          <InputRightElement children={<BsSearch color="gray" />} />
+          <InputRightElement
+            children={<BsSearch color="gray" />}
+            onClick={handleSubmit}
+            cursor="pointer"
+          />
         </InputGroup>
       </form>
     </Box>
